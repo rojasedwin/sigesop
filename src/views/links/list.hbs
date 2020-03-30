@@ -1,0 +1,70 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each links}}
+
+     <div class="col-md-3 mx-auto">
+            <div class="card text-center">
+                <div class="card-body">
+                    <a href="{{url}}" target=_blank>
+                        <h3 class="card-title text-uppercase">
+                            {{title}}
+                        </h3>
+                      
+                    </a>
+                    <p class="m-2">{{description}}</p>
+                    <p>{{timeago created_at 'es_ES'}}</p>
+                   <a href="/links/delete/{{id}}" class="m-2 btn btn-danger">ELIMINAR</a>
+                   <a href="/links/edit/{{id}}" class="m-2 btn btn-secondary">EDITAR</a>
+
+                </div>
+            </div>
+<br>
+        </div>
+       
+
+    
+       
+        {{else}}
+        <div class="col-md-3 mx-auto">
+            <div class="card card-body text-center">
+                <p>
+                    NO HAY REGISTROS
+                    
+                </p>
+                <a href="/links/add">CREA</a>
+            </div>
+
+        </div>
+        {{/each}}
+    </div>
+<div class="table-responsive"></div>
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">TITULO</th>
+      <th scope="col">URL</th>
+      <th scope="col">DESCRIPCION</th>
+    </tr>
+  </thead>
+  <tbody>
+      
+     {
+  firstname: "Yehuda",
+  lastname: "Katz"
+     }
+<p>{{firstname}} {{lastname}}</p>
+       {{#each links}}
+       {{var i=0}}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{title}}</td>
+      <td>{{url}}</td>
+      <td>{{description}}</td>
+    </tr>
+         {{/each}}
+  </tbody>
+</table>
+</div>
+</div>
+
