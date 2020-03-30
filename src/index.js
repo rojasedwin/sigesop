@@ -10,7 +10,7 @@ const passport = require('passport');
 const { database } = require('./keys');
 
 
-//INICIALIZACION
+//INICIALIZACION DE
 const app = express();
 require('./lib/passport');
 
