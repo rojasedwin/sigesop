@@ -46,8 +46,17 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 // to generate fake data
 router.get('/generate-fake-data', (req, res, next) => {
-    let varurl=faker.internet.url();
+    const url=faker.internet.url();
+    const title=faker.commerce.department();
+    const description=faker.commerce.productName();
+    const user_id=faker.random.number();
     for(let i = 0; i < 90; i++) {
+        const newLink = {
+            title,
+            url,
+            description,
+            user_id    
+        };
 
 
         
