@@ -47,7 +47,16 @@ router.get('/generate-fake-data', (req, res, next) => {
     for(let i = 0; i < 90; i++) {
 
 
-        console.log('HOLA');
+        const newLink = {
+            title='PRUEBA',
+            url='http://www.hola.com',
+            description='descreipcion',
+            //variable de sesion
+            user_id='1'
+    
+        };
+        
+        pool.query('INSERT INTO links set ?', [newLink]);
        
      
     }
