@@ -126,7 +126,7 @@ router.get('/products/:page',async (req,res,next)=>{
     let perPage=9;
     let page=req.params.page || 1;
     let ski=(perPage*page)-perPage;
-    const links = await pool.query('SELECT * FROM links limit', [ski,perPage]);
+    const links = await pool.query('SELECT * FROM links ');
     res.render('links/listado', { links });
 
 });
