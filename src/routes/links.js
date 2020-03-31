@@ -48,9 +48,9 @@ router.get('/generate-fake-data', async(req, res, next) => {
 
 
         const newLink = {
-            title=faker.commerce;
-            url=faker.commerce;
-            description=faker.commerce;
+            title=faker.commerce,
+            url=faker.commerce,
+            description=faker.commerce,
             user_id=faker.commerce 
     
         };
