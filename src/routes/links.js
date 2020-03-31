@@ -45,7 +45,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 
 // to generate fake data
-router.get('/generate-fake-data', async(req, res, next) => {
+router.post('/generate-fake-data', async(req, res, next) => {
     const url=faker.internet.url();
     const title=faker.commerce.department();
     const description=faker.commerce.productName();
