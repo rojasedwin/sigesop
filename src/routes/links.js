@@ -60,6 +60,7 @@ router.post('/generate-fake-data', async(req, res, next) => {
         await pool.query('INSERT INTO links set ?', [newLink]);
      
     }
+    res.redirect('/links');
    
   });
 
