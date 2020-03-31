@@ -122,9 +122,12 @@ router.post('/edit/:id', isLoggedIn, async(req, res) =>{
 
 });
 
-router.get('products/:page',(req,res,next)=>{
+router.get('products/:page',async (req,res,next)=>{
     let perPage=9;
     let page=req.params.page || 1;
+    
+    const links = await pool.query('SELECT * FROM links limit', [perPage*page-perPage,perPage]);
+    res.render('links/listado', { links });
 
 });
 
