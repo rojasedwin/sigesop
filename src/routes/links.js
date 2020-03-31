@@ -48,11 +48,11 @@ router.get('/generate-fake-data', (req, res, next) => {
 
 
         const newLink = {
-            title='PRUEBA',
-            url='http://www.hola.com',
-            description='descreipcion',
+            'title'=>'PRUEBA',
+            'url'=>'http://www.hola.com',
+            'description'=>'descreipcion',
             //variable de sesion
-            user_id='1'
+            'user_id'=>'1'
     
         };
         
