@@ -46,6 +46,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 // to generate fake data
 router.get('/generate-fake-data', (req, res, next) => {
+    let varurl=faker.internet.url();
     for(let i = 0; i < 90; i++) {
 
 
