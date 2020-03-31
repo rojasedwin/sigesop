@@ -43,19 +43,12 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 
 // to generate fake data
-router.get('/generate-fake-data', async(req, res, next) => {
+router.get('/generate-fake-data', (req, res, next) => {
     for(let i = 0; i < 90; i++) {
 
 
-        const newLink = {
-            title=faker.commerce,
-            url=faker.commerce,
-            description=faker.commerce,
-            user_id=faker.commerce 
-    
-        };
-
-        await pool.query('INSERT INTO links set ?', [newLink]);
+        console.log('HOLA');
+       
      
     }
    
