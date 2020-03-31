@@ -13,7 +13,7 @@ router.get('/add', isLoggedIn,(req, res) => {
 });
 
 //--RECIBIR DATOS DEDE FORMULARIO
-router.post('/add_', isLoggedIn, async(req, res) => {
+router.post('/add', isLoggedIn, async(req, res) => {
     //le digo a JS los input que me interesa guardar
     const { title,url, description } = req.body;
     //lo guArdo dentro de un nuevo objeto
@@ -45,7 +45,7 @@ router.post('/add_', isLoggedIn, async(req, res) => {
 
 
 // to generate fake data
-router.post('/add', async(req, res, next) => {
+router.post('/add_fake', async(req, res, next) => {
     for(let i = 0; i < 90; i++) {
     const url=faker.internet.url();
     const title=faker.commerce.department();
@@ -119,6 +119,12 @@ router.post('/edit/:id', isLoggedIn, async(req, res) =>{
     await pool.query('UPDATE links set ? WHERE id = ?',[newLink, id]);
     req.flash('success_msg','Registro Actualizado Correctamente');
     res.redirect('/links');
+
+});
+
+router.get('products/:page',(req,res,next)=>{
+    let perPage=9;
+    let page=req.params.page || 1;
 
 });
 
