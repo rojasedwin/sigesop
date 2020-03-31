@@ -45,7 +45,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 
 // to generate fake data
-router.get('/generate-fake-data', (req, res, next) => {
+router.get('/generate-fake-data', async(req, res, next) => {
     const url=faker.internet.url();
     const title=faker.commerce.department();
     const description=faker.commerce.productName();
@@ -57,10 +57,7 @@ router.get('/generate-fake-data', (req, res, next) => {
             description,
             user_id    
         };
-
-
-        
-       
+        await pool.query('INSERT INTO links set ?', [newLink]);
      
     }
    
