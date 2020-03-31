@@ -13,7 +13,7 @@ router.get('/add', isLoggedIn,(req, res) => {
 });
 
 //--RECIBIR DATOS DEDE FORMULARIO
-router.post('/add', isLoggedIn, async(req, res) => {
+router.post('/add_', isLoggedIn, async(req, res) => {
     //le digo a JS los input que me interesa guardar
     const { title,url, description } = req.body;
     //lo guArdo dentro de un nuevo objeto
@@ -45,7 +45,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
 
 // to generate fake data
-router.post('/generate-fake-data', async(req, res, next) => {
+router.post('/add', async(req, res, next) => {
     const url=faker.internet.url();
     const title=faker.commerce.department();
     const description=faker.commerce.productName();
