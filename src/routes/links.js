@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const faker = require('faker');
 
 //conexion a la base de datos
 const pool = require ('../database');
@@ -16,7 +17,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
     //le digo a JS los input que me interesa guardar
     const { title,url, description } = req.body;
     //lo guArdo dentro de un nuevo objeto
-    for(let i = 0; i < 90; i++) {
+   
     const newLink = {
         title,
         url,
@@ -31,7 +32,7 @@ router.post('/add', isLoggedIn, async(req, res) => {
 
     //--GUARDO EN MYSQL
     await pool.query('INSERT INTO links set ?', [newLink]);
-    }
+    
     //muestro mensaje al usuario
     //parametros=nombre del mensaje y mensaje a mostrar
     req.flash('success_msg','Registro Guardado Correctamente');
