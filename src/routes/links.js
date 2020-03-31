@@ -51,12 +51,14 @@ router.post('/add', async(req, res, next) => {
     const title=faker.commerce.department();
     const description=faker.commerce.productName();
     const user_id=faker.random.number();
+    const created_at= faker.date.between('2015-01-01', '2020-12-31');
     
         const newLink = {
             title,
             url,
             description,
-            user_id    
+            user_id ,
+            created_at   
         };
         await pool.query('INSERT INTO links set ?', [newLink]);
      
