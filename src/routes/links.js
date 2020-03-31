@@ -41,6 +41,28 @@ router.post('/add', isLoggedIn, async(req, res) => {
     res.redirect('/links');
 });
 
+
+// to generate fake data
+router.get('/generate-fake-data', async(req, res, next) => {
+    for(let i = 0; i < 90; i++) {
+
+
+        const newLink = {
+            title=faker.commerce;
+            url=faker.commerce;
+            description=faker.commerce;
+            user_id=faker.commerce 
+    
+        };
+
+        await pool.query('INSERT INTO links set ?', [newLink]);
+     
+    }
+   
+  });
+
+
+
 //--MOSTRAR EN PANTALLA LO QUE GUARDO DESDE FORMULARIO ADD
 router.get('/', isLoggedIn, async(req, res) => {
     //consulto todos los links
