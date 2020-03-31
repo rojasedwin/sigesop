@@ -122,7 +122,7 @@ router.post('/edit/:id', isLoggedIn, async(req, res) =>{
 
 });
 
-router.get('products/:page',async (req,res,next)=>{
+router.get('/products/:page',async (req,res,next)=>{
     let perPage=9;
     let page=req.params.page || 1;
     
