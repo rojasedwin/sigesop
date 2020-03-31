@@ -73,7 +73,7 @@ router.post('/add_fake', async(req, res, next) => {
 router.get('/', isLoggedIn, async(req, res) => {
     //consulto todos los links
     //const links = await pool.query('SELECT * FROM links');
-    const links = await pool.query('SELECT * FROM links');
+    const links = await pool.query('SELECT * FROM links WHERE user_id = ?',[req.user.id]);
     //console.log(links);
     //res.send('AQUI VAN LISTAS');
     //RENDERIZO
