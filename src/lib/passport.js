@@ -11,7 +11,7 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
-    const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+    const rows = await pool.query('SELECT * FROM usuarios WHERE username = ?', [username]);
     if (rows.length > 0) {
       const user = rows[0];
       const validPassword = await helpers.matchPassword(password, user.password)
@@ -45,7 +45,7 @@ passport.use('local.signup', new LocalStrategy({
     //cifrar el password
     newUser.password = await helpers.encryptPassword(password);
     //INSERTO EN la BD
-    const result = await pool.query('INSERT INTO users SET ?',[newUser]);
+    const result = await pool.query('INSERT INTO usuarios SET ?',[newUser]);
     newUser.id = result.insertId;
     //muestro por consola el registro afectado en la BD
     //console.log(result);
@@ -62,7 +62,7 @@ passport.serializeUser((user, done) => {
 
 //deserializar la sesion del usuario
 passport.deserializeUser(async (id, done) => {
-    const rows = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    const rows = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
     done(null, rows[0]);
 });
 
