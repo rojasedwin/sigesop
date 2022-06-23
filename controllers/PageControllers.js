@@ -7,7 +7,8 @@ const vistaPrincipal = (req, res)=>{
 
 const vistaUsuarios = (req, res)=>{
     console.log('Desde Usuario el rol es: '+req.session.my_rol)
-    res.render('usuarios')
+    const rol_user=req.session.my_rol
+    res.render('usuarios',{rol_user})
 }
 
 module.exports ={
