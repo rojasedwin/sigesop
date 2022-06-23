@@ -1,18 +1,22 @@
 const mysql = require('mysql')
 
-/*const conexion = mysql.createConnection({
-    host : 'us-cdbr-iron-east-01.cleardb.net',
-    user : 'b84edc25641db3',
-    password : '36094175',
-    database : 'heroku_55e1d1d5ed983d2',
-})*/
-
 const conexion = mysql.createConnection({
+    
+    host : 'us-cdbr-east-05.cleardb.net',
+ 
+    user : 'bf7ce2d52f141a',
+   
+    password : '4a1944fd',
+  
+    database : '	heroku_a1f7b4e8dda28ba',
+})
+
+/*const conexion = mysql.createConnection({
     host : process.env.DB_HOST,
     user : process.env.DB_USER,
     password : process.env.DB_PASS,
     database : process.env.DB_DATABASE,
-})
+})*/
 
 
 /*const conexion = mysql.createConnection({
