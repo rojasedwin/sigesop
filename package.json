@@ -1,34 +1,20 @@
 {
-  "name": "SIA",
+  "name": "sigesop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rojasedwin/sigesop.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^16.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "express-handlebars": "^3.1.0",
-    "express-mysql-session": "^2.1.2",
-    "express-session": "^1.17.0",
-    "express-validator": "^6.3.1",
-    "faker": "^4.1.0",
-    "mongodb": "^3.5.5",
-    "morgan": "^1.9.1",
-    "mysql": "^2.18.1",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "timeago.js": "^4.0.2"
+  "bugs": {
+    "url": "https://github.com/rojasedwin/sigesop/issues"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+  "homepage": "https://github.com/rojasedwin/sigesop#readme"
 }
