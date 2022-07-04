@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/rojasedwin/sigesop/issues"
   },
-  "homepage": "https://github.com/rojasedwin/sigesop#readme"
+  "homepage": "https://github.com/rojasedwin/sigesop#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
 }
