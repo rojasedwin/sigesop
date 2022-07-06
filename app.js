@@ -14,6 +14,29 @@ dotenv.config({ path: './env/.env'});
 app.use('/resources',express.static('public'));
 app.use('/resources', express.static(__dirname + '/public'));
 
+//5 - Establecemos el motor de plantillas
+app.set('view engine','ejs');
+
+//6 -Invocamos a bcrypt
+const bcrypt = require('bcryptjs');
+
+//7- variables de session
+const session = require('express-session');
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
+
+// 8 - Invocamos a la conexion de la DB
+const connection = require('./database/db');
+
+
+app.get('/', (req, res) =>{
+	res.send('HOLA MUNDO')
+})
+
 app.listen(3000, (req, res)=>{
     console.log('SERVER RUNNING IN http://localhost:3000');
 });
