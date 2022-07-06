@@ -20,19 +20,19 @@ const mysql = require('mysql');
 //   module.exports = connection;
 
 
-var pool  = mysql.createPool({
-    connectionLimit : 20,
-    host            : 'us-cdbr-east-05.cleardb.net',
-    user            : 'bf7ce2d52f141a',
-    password        : '4a1944fd',
-    database        : 'heroku_a1f7b4e8dda28ba'
-  });
+// var pool  = mysql.createPool({
+//     connectionLimit : 20,
+//     host            : 'us-cdbr-east-05.cleardb.net',
+//     user            : 'bf7ce2d52f141a',
+//     password        : '4a1944fd',
+//     database        : 'heroku_a1f7b4e8dda28ba'
+//   });
   
-  pool.query('SELECT * from users', function (error, results, fields) {
-    if (error) throw error;
-    //console.log(results[0]);
-  });
+//   pool.query('SELECT * from users', function (error, results, fields) {
+//     if (error) throw error;
+//     //console.log(results[0]);
+//   });
 
-  module.exports = pool;
+//   module.exports = pool;
 
   
