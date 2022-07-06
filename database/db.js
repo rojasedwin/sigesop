@@ -7,19 +7,19 @@ const mysql = require('mysql')
     database : process.env.DB_DATABASE,
 })*/
 
-/*const conexion = mysql.createConnection({
+const conexion = mysql.createConnection({
     host : 'us-cdbr-east-05.cleardb.net',
     user : 'bf7ce2d52f141a',
     password : '4a1944fd',
     database : 'heroku_a1f7b4e8dda28ba'
-})*/
+})
 
-const conexion = mysql.createConnection({
+/*const conexion = mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
     database : 'sianew'
-})
+})*/
 
 conexion.connect ((error) => {
     if(error) {
