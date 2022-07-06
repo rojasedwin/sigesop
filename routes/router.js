@@ -7,14 +7,15 @@ const conexion = require('../database/db')
 
 router.get('/', (req, res) => {
    //res.send('Hola soy mundo');
-   // conexion.query('SELECT * FROM users', (error, results) =>{
-   //    if(error){
-   //       throw error;
-   //    }else{
-   //       res.send(results);
-   //    }
-   // })
-   res.render('index', {nombre:'edwin'})
+   conexion.query('SELECT * FROM users', (error, results) =>{
+      if(error){
+         throw error;
+      }else{
+         //res.send(results);
+         res.render('index', {results:results});
+      }
+   })
+  
 })
 
 
