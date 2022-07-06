@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
    //       res.send(results);
    //    }
    // })
-   res.render('index')
+   res.render('index', {nombre:'edwin'})
 })
 
 
