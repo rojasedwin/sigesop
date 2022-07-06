@@ -16,5 +16,5 @@ on(document, 'click','.btnEditar', e =>{
     user_name.value= fila.children[1].innerHTML
     user_lastname.value= fila.children[2].innerHTML
     console.log(fila.children[2].innerHTML)
-    $('#modalUsuario').modal('show')
+    //$('#modalUsuario').modal('show')
 })
