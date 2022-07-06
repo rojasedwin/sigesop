@@ -30,7 +30,7 @@ app.use(session({
 
 
 // 8 - Invocamos a la conexion de la DB
-const connection = require('./database/db');
+//const connection = require('./database/db');
 
 
 app.get('/', (req, res) =>{
