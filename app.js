@@ -4,9 +4,8 @@ const app = express()
 app.set('view engine', 'ejs')
 
 
-app.get('/', (req, res) =>{
-    res.send('Hola mundo')
-})
+// import the router
+app.use('/', require('./routes/router'))
 
 const PORT = process.env.PORT || 3000
 
