@@ -10,10 +10,11 @@ const on =(element, event, selector, handler) =>{
 }
 
 on(document, 'click','.btnEditar', e =>{
-    alert();
+   
 	const fila =e.target.parentNode.parentNode
     id_editar.value= fila.children[0].innerHTML
     user_name.value= fila.children[1].innerHTML
     user_lastname.value= fila.children[2].innerHTML
     console.log(fila.children[2].innerHTML)
+    $('#modalUsuario').modal('show')
 })
