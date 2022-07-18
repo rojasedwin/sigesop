@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 
-app.set('View engine','ejs')
+app.set('view engine','ejs')
+app.use(express.urlencoded({extended:false}))
 
 app.use('/', require('./routes/router'))
 

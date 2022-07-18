@@ -15,6 +15,7 @@ const conexion = require('../database/db')
 });*/
 
 router.get('/', (req, res) =>{
+    //res.render('index')
     /*conexion.query('SELECT * from users', (error, results) =>{
         if(error){
             throw error
@@ -29,7 +30,8 @@ router.get('/', (req, res) =>{
             if(error){
                 throw error
             }else{
-                res.send(rows)
+                res.render('index', {rows:rows})
+                console.log(rows)
             }
             // Y listo con la conexión.
             connection.release();
