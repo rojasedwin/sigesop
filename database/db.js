@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 
-var pool  = mysql.createPool({
+const pool  = mysql.createPool({
 //const conexion  = mysql.createConnection({
     host:'us-cdbr-east-05.cleardb.net',
     user:'bf7ce2d52f141a',
@@ -17,15 +17,7 @@ var pool  = mysql.createPool({
     }
 })*/
 
-pool.getConnection(function(err, connection) {
-    // Usa la conexión
-    connection.query( 'SELECT something FROM users', function(err, rows) {
-        // Y listo con la conexión.
-        connection.release();
-        
-        // No use la conexión aquí, se ha devuelto al grupo.
-    });
-});
+
 
 pool.on('connection', function (connection) {
     console.log("Connected");
