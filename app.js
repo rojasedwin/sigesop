@@ -1,10 +1,14 @@
 const express = require('express')
 const app = express()
 
+app.set('View engine','ejs')
 
-app.get('/', (req, res) =>{
-    res.send('Hola mundo')
-})
+app.use('/', require('./routes/router'))
+
+//conexion DB
+const conexion = require('./database/db')
+
+
 
 const PORT = process.env.PORT || 3000
 
