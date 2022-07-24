@@ -19,11 +19,10 @@ const pool  = mysql.createPool({
 
 
 
-pool.on('connection', function (connection) {
-    console.log("Connected");
-    // Establecer una variable de sesión
-    //connection.query('SET SESSION auto_increment_increment=1')
-});
+pool.getConnection(function(err, connection) {
+    if (err) throw err; // not connected!
+ 
+  });
 
 
 module.exports = pool

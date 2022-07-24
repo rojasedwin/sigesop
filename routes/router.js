@@ -31,7 +31,7 @@ router.get('/', (req, res) =>{
                 throw error
             }else{
                 res.render('index', {rows:rows})
-                //console.log(rows)
+                console.log('BD CONECTADA')
             }
             // Y listo con la conexión.
             connection.release();
