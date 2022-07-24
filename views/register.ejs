@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SISCOI | Log in</title>
+</head>
+<body class="hold-transition login-page">
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <% if(alert) { %>
+           <p>Email ya existe</p> 
+        <% } %> 
+      <h3 class="card-title">Quick Example</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form action="/registeruser" method="post">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="exampleInputNombre">Nombre</label>
+          <input type="text" name="user_name" class="form-control" id="exampleInputNombre" placeholder="Enter nombre">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputNombre">Email</label>
+            <input type="text" name="user_email" class="form-control" id="exampleInputNombre" placeholder="Enter email">
+          </div>
+        
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" name="user_pwd" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        
+       
+      </div>
+      <!-- /.card-body -->
+
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+  <!-- /.card -->
+
+  
+</body>
+</html>

@@ -4,6 +4,11 @@ const router =express.Router()
 
 const conexion = require('../database/db')
 
+//to invoke the methods for the CRUD of users
+const userController = require('../controllers/userController')
+const authController = require('../controllers/authController')
+const { Router } = require('express')
+
 /*conexion.getConnection(function(err, connection) {
     // Usa la conexión
     connection.query( 'SELECT * FROM users', function(err, rows) {
@@ -14,7 +19,7 @@ const conexion = require('../database/db')
     });
 });*/
 
-router.get('/', (req, res) =>{
+router.get('/home', (req, res) =>{
     //res.render('index')
     /*conexion.query('SELECT * from users', (error, results) =>{
         if(error){
@@ -30,7 +35,7 @@ router.get('/', (req, res) =>{
             if(error){
                 throw error
             }else{
-                res.render('index', {rows:rows})
+                res.render('home', {rows:rows})
                 console.log('BD CONECTADA')
             }
             // Y listo con la conexión.
@@ -41,6 +46,17 @@ router.get('/', (req, res) =>{
     })
     
 })
+
+router.get('/register', (req, res) => {
+    res.render('register',{alert:false})
+})
+
+router.get('/', (req, res) => {
+    res.render('index',{alert:false})
+})
+
+router.post('/registeruser', authController.registeruser)
+router.post('/login', authController.login)
 
 
 module.exports  = router
