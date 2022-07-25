@@ -1,13 +1,13 @@
 const express = require('express')
 const router =express.Router()
-
-
-const conexion = require('../database/db')
-
 //to invoke the methods for the CRUD of users
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
 const { Router } = require('express')
+
+const conexion = require('../database/db')
+
+
 
 /*conexion.getConnection(function(err, connection) {
     // Usa la conexión
@@ -19,7 +19,7 @@ const { Router } = require('express')
     });
 });*/
 
-router.get('/home', (req, res) =>{
+router.get('/home',authController.isAuthenticated, (req, res) =>{
     //res.render('index')
     /*conexion.query('SELECT * from users', (error, results) =>{
         if(error){
@@ -54,6 +54,8 @@ router.get('/register', (req, res) => {
 router.get('/', (req, res) => {
     res.render('index',{alert:false})
 })
+
+router.get('/logout', authController.logout)
 
 router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)

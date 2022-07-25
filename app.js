@@ -12,7 +12,7 @@ dotenv.config({path: './env/.env'})
 app.use(express.urlencoded({extended:false}))
 
 
-//app.use(cookieParser)
+app.use(cookieParser())
 
 
 
