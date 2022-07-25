@@ -8,6 +8,14 @@ const pool  = mysql.createPool({
     database:'heroku_a1f7b4e8dda28ba',
 })
 
+/*const pool  = mysql.createPool({
+    //const conexion  = mysql.createConnection({
+        host:'localhost',
+        user:'root',
+        password:'',
+        database:'sianew',
+    })*/
+
 /*conexion.connect(   (error)=>{
     if(error){
         console.log('EL ERROR DE CONEXION ES: '+error)

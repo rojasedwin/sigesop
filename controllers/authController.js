@@ -81,6 +81,12 @@ exports.login = async (req, res)=>{
                 }else{
                     //login OK
                     const id = results[0].user_id
+                    const user_type = results[0].user_type
+                    const user_name = results[0].user_name
+
+                    req.session.user_name = user_name;
+                    req.session.user_type = user_type;
+                    req.session.user_id = id;
                     
                     const token = jwt.sign({id:id}, process.env.JWT_SECRETO, {
                         expiresIn: process.env.JWT_EXPIRATION_TIME
