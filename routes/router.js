@@ -52,12 +52,12 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
     
     conexion.getConnection(function(err, connection) {
 
-        connection.query( 'SELECT * FROM users', function(error, rows) {
+        connection.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, rows) {
             if(error){
                 throw error
             }else{
-
-                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name})
+                 //console.log(rows)   
+                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false})
                  
             }
             connection.release();
@@ -74,6 +74,7 @@ router.get('/logout', authController.logout)
 //RUTAS POST
 router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
+router.post('/saveusuario', userController.saveusuario)
 
 
 module.exports  = router

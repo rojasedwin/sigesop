@@ -13,7 +13,10 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                  <h3 class="card-title">Usuarios</h3>
+                  <button id="btnUsuario" style="float:right" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default">
+                    Nuevo
+                    <i class="fa fa-user-plus"></i></button>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -22,6 +25,7 @@
                     <tr>
                       <th>Nombre y Apellido</th>
                       <th>Rol</th>
+                      <th>-</th>
                     
                     </tr>
                     </thead>
@@ -29,7 +33,12 @@
                     <% rows.forEach ((item) =>{ %>      
                     <tr>
                       <td><%= item.user_name %> <%= item.user_lastname %></td>
-                      <td><%= item.user_type %></td>
+                      <td><%= item.tipo_nombre %></td>
+                      <td>
+                        <button type="button" class="btn btn-outline-primary btn-block"><i class="fa fa-edit"></i></button>
+
+                        <button type="button" class="btn btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
+                      </td>
                     </tr>
                     <% }) %>
                    
@@ -50,6 +59,8 @@
       </section>
 
     <!-- /.content -->
+   
+      
 
     <%- include("template/footer") %>
   

@@ -1,3 +1,102 @@
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form name="form_usuarios" id="form_usuarios" action="/saveusuario" method="post">
+      <div class="modal-header">
+        <h4 class="modal-title">Gestión de Usuarios</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="card card-danger">
+          
+          <div class="card-body">
+            
+            <!-- Nombre -->
+            <div class="form-group">
+              <label>Nombre:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="user_name" id="user_name">
+              </div>
+            </div>
+
+
+             <!-- Apellido -->
+             <div class="form-group">
+              <label>Apellido:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="user_lastname" id="user_lastname">
+              </div>
+
+            </div>
+
+             <!-- Email -->
+             <div class="form-group">
+              <label>Email:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-envelope"></i></span>
+                </div>
+                <input type="text" class="form-control" name="user_email" id="user_email">
+              </div>
+
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label>Password:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="text" class="form-control" name="user_pwd" id="user_pwd">
+              </div>
+
+            </div>
+           
+
+            <div class="form-group">
+              <label>Rol:</label>
+              <select class="form-control" style="width: 100%;" name="user_type" id="user_type">
+                <option value="">Seleccione</option>
+                <option value="1">Administrador</option>
+                <option value="2">Gerente</option>
+                <option value="3">Ministro</option>
+                <option value="4">Registro</option>
+                
+              </select>
+            </div>
+
+            
+            
+          </div>
+          <!-- /.card-body -->
+        </div>
+
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>  
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
 </div>
 <!-- /.content-wrapper -->
 <footer class="main-footer">
@@ -53,6 +152,8 @@ $.widget.bridge('uibutton', $.ui.button)
 
 <!-- SweetAlert2 -->
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -67,6 +168,15 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<!-- InputMask -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
 
 <script>
   $(function () {
@@ -83,8 +193,41 @@ $.widget.bridge('uibutton', $.ui.button)
       "autoWidth": false,
       "responsive": true,
     });
+
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    $('.select2').select2()
+
+
+
   });
+
+  
+
 </script>
+
+<% if(alert) { %>
+  <script>
+
+var Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+toastr.error('Email existe') 
+
+$('#btnUsuario').trigger('click');
+
+  </script>
+<% } %>  
 
 </body>
 </html>
