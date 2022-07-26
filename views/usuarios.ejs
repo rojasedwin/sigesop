@@ -1,0 +1,55 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                      <th>Nombre y Apellido</th>
+                      <th>Rol</th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rows.forEach ((item) =>{ %>      
+                    <tr>
+                      <td><%= item.user_name %> <%= item.user_lastname %></td>
+                      <td><%= item.user_type %></td>
+                    </tr>
+                    <% }) %>
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+
+    <%- include("template/footer") %>
+  
