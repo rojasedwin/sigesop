@@ -50,7 +50,7 @@ exports.saveusuario = async (req, res) =>{
                 } else {
 
                     // Usa la conexión
-                    conexion.query( 'INSERT INTO users set ?', {user_email:user_email, user_name:user_name, user_pwd:passHash, user_type:user_type}, (error, results) =>{
+                    conexion.query( 'INSERT INTO users set ?', {user_email:user_email, user_name:user_name,user_lastname:user_lastname, user_pwd:passHash, user_type:user_type}, (error, results) =>{
 
                         if(error){
                             throw error
@@ -74,4 +74,26 @@ exports.saveusuario = async (req, res) =>{
     } catch (error) {
         console.error(error)
     }
+}
+
+module.exports.editarusuario = async (req,res)=>{
+    const id = req.body.user_id
+    const user_email= req.body.user_email
+    const user_name= req.body.user_name
+    const user_lastname= req.body.user_lastname
+    const user_pwd= req.body.user_pwd
+    const user_type= req.body.user_type
+
+    let passHash = await bcryptjs.hash(user_pwd, 10)
+
+    console.log(user_email +" - "+user_name+" - "+passHash+" - "+id+" - "+user_lastname+" - "+user_type)
+
+    conexion.query('UPDATE users SET ? WHERE user_id = ?', [{ user_name:user_name, user_email:user_email, user_lastname:user_lastname, user_pwd:passHash, user_type:user_type}, id ], (error, results) => {
+        if(error) {
+            console.error(error)
+        } else {
+            res.redirect('usuarios');
+        }
+    })
+    
 }

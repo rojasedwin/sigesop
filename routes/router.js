@@ -75,6 +75,8 @@ router.get('/logout', authController.logout)
 router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
+//Editar usuario (POST)
+router.post('/editarusuario', userController.editarusuario)
 
 router.get('/deleteuser/:id', ( req, res ) =>{
     const id=req.params.id

@@ -27,10 +27,10 @@ const pool  = mysql.createPool({
 
 
 
-pool.getConnection(function(err, connection) {
+/*pool.getConnection(function(err, connection) {
     if (err) throw err; // not connected!
  
-  });
+  });*/
 
 
 module.exports = pool

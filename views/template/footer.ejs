@@ -76,6 +76,15 @@
               </select>
             </div>
 
+            <div class="form-group">
+             
+              <div class="input-group">
+                
+                <input type="text" class="form-control" id="user_id" name="user_id">
+              </div>
+
+            </div>
+
             
             
           </div>
@@ -267,7 +276,20 @@ $.widget.bridge('uibutton', $.ui.button)
 
   });//FIN FUNCION
 
+  /*const modalAlumno = new bootstrap.Modal(document.getElementById('modal-default'))
+const on = (element, event, selector, handler) => {
+    element.addEventListener(event, e => {
+        if(e.target.closest(selector)){
+            handler(e)
+        }
+    })
+}*/
+on(document, 'click', '.btnNewUser', e =>{
   
+  
+})
+
+
 
 </script>
 
@@ -327,6 +349,30 @@ setTimeout(function(){
   function limpiarModalUser(){
       document.getElementById("form_usuarios").reset();
   }
+
+  function modalUsuario(user_id){
+
+//alert(user_id);
+$('#user_name').val($('#name_html_'+user_id).val())
+$('#user_lastname').val($('#apellido_html_'+user_id).val())
+$('#user_id').val($('#id_html_'+user_id).val())
+$('#user_email').val($('#email_html_'+user_id).val())
+$('#user_pwd').val('')
+$('select option[value="'+$('#rol_html_'+user_id).val()+'"]').attr("selected", true);
+
+$("#form_usuarios").attr("action", '/editarusuario')
+
+$('#modal-default').modal('show')
+  }
+
+
+  $( document ).ready(function() {
+    ('#btnUsuario').click(function(){
+  alert('click');
+  document.getElementById("form_usuarios").reset();
+})
+
+});
 
  
 </script>

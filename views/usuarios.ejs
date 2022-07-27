@@ -14,7 +14,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Usuarios</h3>
-                  <button  id="btnUsuario" style="float:right" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default">
+                  <button  id="btnUsuario" style="float:right" type="button" class="btn btn-primary btn-sm btnNewUser" data-toggle="modal" data-target="#modal-default">
                     Nuevo
                     <i class="fa fa-user-plus"></i></button>
                 </div>
@@ -23,6 +23,7 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                     
                       <th>Nombre y Apellido</th>
                       <th>Rol</th>
                       <th>-</th>
@@ -32,10 +33,18 @@
                     <tbody>
                     <% rows.forEach ((item) =>{ %>      
                     <tr>
-                      <td><%= item.user_name %> <%= item.user_lastname %></td>
+                     
+                      <td>
+                        <%= item.user_name %> <%= item.user_lastname %>
+                        <input type="hidden" id='name_html_<%= item.user_id %>' value=<%= item.user_name %> >
+                        <input type="hidden" id='apellido_html_<%= item.user_id %>' value=<%= item.user_lastname %> >
+                        <input type="hidden" id='id_html_<%= item.user_id %>' value=<%= item.user_id %> >
+                        <input type="hidden" id='email_html_<%= item.user_id %>' value=<%= item.user_email %> >
+                        <input type="hidden" id='rol_html_<%= item.user_id %>' value=<%= item.user_type %> >
+                      </td>
                       <td><%= item.tipo_nombre %></td>
                       <td>
-                        <button type="button" class="btn btn-outline-primary btn-block"><i class="fa fa-edit"></i></button>
+                        <button onclick="modalUsuario(<%= item.user_id %>)" data-id='<%=item.user_id %>' type="button" class="btn btn-outline-primary btn-block btnEditar"><i class="fa fa-edit"></i></button>
 
                         <button onclick="deleteUser(<%= item.user_id %>)" type="button" class="btn btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
                       </td>
