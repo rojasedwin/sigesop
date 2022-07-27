@@ -15,7 +15,7 @@ exports.saveusuario = async (req, res) =>{
 
         let passHash = await bcryptjs.hash(user_pwd, 10)
 
-        //console.log(user_email +" - "+user_name+" - "+passHash)
+        console.log(user_email +" - "+user_name+" - "+passHash)
         //conexion.getConnection(function(err, connection) {
 
 
@@ -30,7 +30,15 @@ exports.saveusuario = async (req, res) =>{
                             throw error
                         }else{
                              //console.log(rows)   
-                             res.render('usuarios',{alert:true, user_type:req.session.user_type, user_name:req.session.user_name, rows:misfilas, alertMessage:"Email Existe"})
+                             res.render('usuarios',{alert:true, user_type:req.session.user_type, user_name:req.session.user_name, rows:misfilas, alertMessage:"Este Email ya fue registrado",
+                             mostrarDatos:true,
+                             username:user_name,
+                             user_lastname:user_lastname,
+                             user_email:user_email,
+                             user_pwd:user_pwd,
+                             user_type:user_type
+                            
+                            })
                              
                         }
                        

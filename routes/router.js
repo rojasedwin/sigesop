@@ -57,7 +57,7 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
                 throw error
             }else{
                  //console.log(rows)   
-                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false})
+                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,mostrarDatos:false})
                  
             }
             connection.release();
@@ -75,6 +75,22 @@ router.get('/logout', authController.logout)
 router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
+
+router.get('/deleteuser/:id', ( req, res ) =>{
+    const id=req.params.id
+
+   
+    conexion.query('DELETE FROM users WHERE user_id=?', [id], (error, results) =>{
+        if(error){
+         throw error;
+        }else{
+            res.redirect('/usuarios')
+           // console.log('eliminado el user_id: '+id)
+        }
+    
+    })
+    
+    });
 
 
 module.exports  = router
