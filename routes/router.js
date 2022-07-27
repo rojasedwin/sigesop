@@ -50,9 +50,9 @@ router.get('/', (req, res) => {
 
 router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
     
-    conexion.getConnection(function(err, connection) {
+    //conexion.getConnection(function(err, connection) {
 
-        connection.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, rows) {
+        conexion.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, rows) {
             if(error){
                 throw error
             }else{
@@ -60,10 +60,10 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
                 res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,mostrarDatos:false})
                  
             }
-            connection.release();
+            //connection.release();
             // No use la conexión aquí, se ha devuelto al grupo.
         });
-    })
+   // })
     
 })
 

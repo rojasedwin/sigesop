@@ -22,7 +22,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" name="user_name" id="user_name" value=<%= mostrarDatos==true ? username:2 %> >
+                <input type="text" class="form-control" name="user_name" id="user_name" value=<%= mostrarDatos==true ? username:'' %> >
               </div>
             </div>
 
@@ -34,7 +34,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" name="user_lastname" id="user_lastname">
+                <input type="text" class="form-control" name="user_lastname" id="user_lastname" value=<%= mostrarDatos==true ? user_lastname:'' %>>
               </div>
 
             </div>
@@ -46,7 +46,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-envelope"></i></span>
                 </div>
-                <input type="text" class="form-control" name="user_email" id="user_email">
+                <input type="text" class="form-control" name="user_email" id="user_email" value=<%= mostrarDatos==true ? user_email:'' %>>
               </div>
 
             </div>
@@ -58,7 +58,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" class="form-control" name="user_pwd" id="user_pwd">
+                <input type="password" class="form-control" name="user_pwd" id="user_pwd" value=<%= mostrarDatos==true ? user_pwd:'' %> >
               </div>
 
             </div>
