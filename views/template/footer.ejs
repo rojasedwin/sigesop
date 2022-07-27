@@ -80,7 +80,7 @@
              
               <div class="input-group">
                 
-                <input type="text" class="form-control" id="user_id" name="user_id">
+                <input type="hidden" class="form-control" id="user_id" name="user_id">
               </div>
 
             </div>
@@ -284,11 +284,6 @@ const on = (element, event, selector, handler) => {
         }
     })
 }*/
-on(document, 'click', '.btnNewUser', e =>{
-  
-  
-})
-
 
 
 </script>
@@ -366,13 +361,6 @@ $('#modal-default').modal('show')
   }
 
 
-  $( document ).ready(function() {
-    ('#btnUsuario').click(function(){
-  alert('click');
-  document.getElementById("form_usuarios").reset();
-})
-
-});
 
  
 </script>
