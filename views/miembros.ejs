@@ -44,7 +44,7 @@
                       <input type="hidden" id='telefono_html_<%= item.miembro_id %>' value='<%= item.miembro_telefono %>' >
                       <input type="hidden" id='nos_conocio_html_<%= item.miembro_id %>' value='<%= item.miembro_nos_conocio %>' >
                       <input type="hidden" id='cedula_html_<%= item.miembro_id %>' value='<%=item.miembro_cedula %>' >
-                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.miembro_nacimiento %>' >
+                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.fecha_nac %>' >
                       
 
                       </td>
@@ -52,9 +52,9 @@
                       <td class="d-none d-sm-none d-md-block"><%= item.miembro_sexo==0 ? 'M':'F' %></td>
                       <td><%= item.miembro_telefono %></td>
                       <td>
-                        <button onclick="modalMiembro(<%= item.miembro_id %>)" data-id='<%=item.miembro_id %>' type="button" class="btn btn-outline-primary btn-block btnEditarMiembro"><i class="fa fa-edit"></i></button>
+                        <button onclick="modalMiembro(<%= item.miembro_id %>)" data-id='<%=item.miembro_id %>' type="button" class="btn btn-sm btn-outline-primary btn-block btnEditarMiembro"><i class="fa fa-edit"></i></button>
 
-                        <button onclick="deleteMiembro(<%= item.miembro_id %>)" type="button" class="btn btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
+                        <button onclick="deleteMiembro(<%= item.miembro_id %>)" type="button" class="btn btn-sm btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
                     <% }) %>

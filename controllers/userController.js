@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
 const conexion = require('../database/db')
 const {promisify}= require('util')
+const moment = require('moment')
+
 
 
 //procedure to save
@@ -111,12 +113,16 @@ exports.savemiembro = async (req, res) =>{
         const miembro_nos_conocio= req.body.miembro_nos_conocio
         const miembro_cedula= req.body.miembro_cedula
 
-        let passHash = await bcryptjs.hash(miembro_cedula, 10)
+        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+     
+        
+        
+        let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
 
-        console.log(miembro_nombres +" - "+miembro_apellidos+" - "+miembro_telefono)
-        //conexion.getConnection(function(err, connection) {
+        console.log(miembro_cedula)
+       
 
-
+            
             conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[miembro_cedula], (error, results) =>{
                 if(results[0]){
 
@@ -149,11 +155,11 @@ exports.savemiembro = async (req, res) =>{
 
                     
                 } else {
-
+                       //res.send('ahora inserto') 
                     // Usa la conexión
                     conexion.query( 'INSERT INTO miembros set ?', {miembro_nombres:miembro_nombres, miembro_apellidos:miembro_apellidos,miembro_telefono:miembro_telefono, 
                     miembro_cedula:miembro_cedula,
-                    miembro_nacimiento:miembro_nacimiento,
+                    miembro_nacimiento:nacimientoformat,
                     miembro_sexo:miembro_sexo,
                     miembro_nos_conocio:miembro_nos_conocio
                     }, (error, results) =>{
@@ -169,15 +175,48 @@ exports.savemiembro = async (req, res) =>{
                    
     
                 }
-            });   
-
+            });
             
-        //})
-
 
 
         
     } catch (error) {
         console.error(error)
     }
+}
+
+
+
+module.exports.editarmiembro = async (req,res)=>{
+
+    const id = req.body.miembro_id
+    const miembro_nombres= req.body.miembro_nombres
+    const miembro_apellidos= req.body.miembro_apellidos
+    const miembro_sexo= req.body.miembro_sexo
+    const miembro_telefono= req.body.miembro_telefono
+    const miembro_nacimiento= req.body.miembro_nacimiento
+    const miembro_nos_conocio= req.body.miembro_nos_conocio
+    const miembro_cedula= req.body.miembro_cedula
+
+    //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+    let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+    console.log(miembro_sexo)
+
+    conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
+        {  
+        miembro_nombres:miembro_nombres, 
+        miembro_apellidos:miembro_apellidos,miembro_telefono:miembro_telefono, 
+        miembro_cedula:miembro_cedula,
+        miembro_nacimiento:nacimientoformat,
+        miembro_sexo:miembro_sexo,
+        miembro_nos_conocio:miembro_nos_conocio
+    }, id ], (error, results) => {
+        if(error) {
+            console.error(error)
+        } else {
+            res.redirect('miembros');
+        }
+    })
+    
 }

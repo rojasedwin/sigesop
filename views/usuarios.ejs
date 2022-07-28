@@ -44,9 +44,9 @@
                       </td>
                       <td><%= item.tipo_nombre %></td>
                       <td>
-                        <button onclick="modalUsuario(<%= item.user_id %>)" data-id='<%=item.user_id %>' type="button" class="btn btn-outline-primary btn-block btnEditar"><i class="fa fa-edit"></i></button>
+                        <button onclick="modalUsuario(<%= item.user_id %>)" data-id='<%=item.user_id %>' type="button" class="btn btn-outline-primary btn-sm btn-block btnEditar"><i class="fa fa-edit"></i></button>
 
-                        <button onclick="deleteUser(<%= item.user_id %>)" type="button" class="btn btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
+                        <button onclick="deleteUser(<%= item.user_id %>)" type="button" class="btn btn-sm btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
                     <% }) %>

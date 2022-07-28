@@ -133,6 +133,11 @@ exports.isAuthenticated = async (req, res, next)=>{
                     if(!results){return next()}
 
                     req.name = results[0]
+                    req.mi_user_type = results[0].user_type
+                    req.mi_user_name = results[0].user_name
+                    req.mi_user_id = results[0].user_id
+                    console.log('este dato es: '+req.mi_user_id)
+                    //res.send(req.mi_user_type)
                     return next()
                 })
             } catch (error) {
