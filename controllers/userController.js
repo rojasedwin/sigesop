@@ -88,7 +88,7 @@ module.exports.editarusuario = async (req,res)=>{
 
     console.log(user_email +" - "+user_name+" - "+passHash+" - "+id+" - "+user_lastname+" - "+user_type)
 
-    conexion.query('UPDATE users SET ? WHERE user_id = ?', [{ user_name:user_name, user_email:user_email, user_lastname:user_lastname, user_pwd:passHash, user_type:user_type}, id ], (error, results) => {
+    conexion.query('UPDATE users SET ? WHERE user_id = ?', [{ user_name:user_name, user_email:user_email, user_lastname:user_lastname,  user_type:user_type}, id ], (error, results) => {
         if(error) {
             console.error(error)
         } else {

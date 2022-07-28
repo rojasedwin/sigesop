@@ -52,7 +52,7 @@
             </div>
 
             <!-- Email -->
-            <div class="form-group">
+            <div id="contenedorPass" class="form-group">
               <label>Password:</label>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -356,11 +356,16 @@ $('#user_pwd').val('')
 $('select option[value="'+$('#rol_html_'+user_id).val()+'"]').attr("selected", true);
 
 $("#form_usuarios").attr("action", '/editarusuario')
+$("#contenedorPass").hide();
 
 $('#modal-default').modal('show')
   }
 
+  $('.btnNewUser').on('click', function (e) {
 
+	  document.getElementById("form_usuarios").reset(); 
+	  $('#modal-default').modal('show')
+	})
 
  
 </script>

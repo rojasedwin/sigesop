@@ -23,7 +23,7 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
                 connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {
                     console.log(req.session.user_id)
                     //console.log(results)
-                    res.render('home', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, seguimiento:results})
+                    res.render('home', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, seguimiento:results, mostrarDatos:false, alert:false, menuactivo:'home'})
 
                 console.log('BD CONECTADA')
 
@@ -57,7 +57,7 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
                 throw error
             }else{
                  //console.log(rows)   
-                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,mostrarDatos:false})
+                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,mostrarDatos:false, menuactivo:'usuario'})
                  
             }
             //connection.release();
