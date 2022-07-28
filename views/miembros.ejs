@@ -1,0 +1,83 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Miembros</h3>
+                  <button  id="btnMiembro" style="float:right" type="button" class="btn btn-primary btn-sm btnNewMiembro" data-toggle="modal" data-target="#modal-miembros">
+                    Nuevo
+                    <i class="fa fa-user-plus"></i></button>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="tablamiembros" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                     
+                      <th>Nombre y Apellido</th>
+                      <th class="d-none d-sm-none d-md-block">Sexo</th>
+                      <th>Teléfono</th>
+                      <th>-</th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rows.forEach ((item) =>{ %>      
+                    <tr>
+                      <td>
+                        <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
+
+                        <input type="hidden" id='name_html_<%= item.miembro_id %>' value='<%= item.miembro_nombres %>' >
+                      <input type="hidden" id='apellido_html_<%= item.miembro_id %>' value='<%= item.miembro_apellidos %>' >
+                      <input type="hidden" id='id_html_<%= item.miembro_id %>' value='<%= item.miembro_id %>' >
+                      <input type="hidden" id='sexo_html_<%= item.miembro_id %>' value='<%= item.miembro_sexo %>' >
+                      <input type="hidden" id='telefono_html_<%= item.miembro_id %>' value='<%= item.miembro_telefono %>' >
+                      <input type="hidden" id='nos_conocio_html_<%= item.miembro_id %>' value='<%= item.miembro_nos_conocio %>' >
+                      <input type="hidden" id='cedula_html_<%= item.miembro_id %>' value='<%=item.miembro_cedula %>' >
+                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.miembro_nacimiento %>' >
+                      
+
+                      </td>
+                     
+                      <td class="d-none d-sm-none d-md-block"><%= item.miembro_sexo==0 ? 'M':'F' %></td>
+                      <td><%= item.miembro_telefono %></td>
+                      <td>
+                        <button onclick="modalMiembro(<%= item.miembro_id %>)" data-id='<%=item.miembro_id %>' type="button" class="btn btn-outline-primary btn-block btnEditarMiembro"><i class="fa fa-edit"></i></button>
+
+                        <button onclick="deleteMiembro(<%= item.miembro_id %>)" type="button" class="btn btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                    <% }) %>
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

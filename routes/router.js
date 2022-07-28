@@ -23,7 +23,7 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
                 connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {
                     console.log(req.session.user_id)
                     //console.log(results)
-                    res.render('home', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, seguimiento:results, mostrarDatos:false, alert:false, menuactivo:'home'})
+                    res.render('home', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home'})
 
                 console.log('BD CONECTADA')
 
@@ -57,7 +57,27 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
                 throw error
             }else{
                  //console.log(rows)   
-                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,mostrarDatos:false, menuactivo:'usuario'})
+                res.render('usuarios', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'usuario'})
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})
+
+router.get('/miembros',authController.isAuthenticated, (req, res) =>{
+    
+    //conexion.getConnection(function(err, connection) {
+
+        conexion.query( 'SELECT * FROM miembros', function(error, rows) {
+            if(error){
+                throw error
+            }else{
+                 //console.log(rows)   
+                // res.send(rows)
+                res.render('miembros', {rows:rows, user_type:req.session.user_type, user_name:req.session.user_name, alert_miembro:false,alert:false,mostrarDatos:false, menuactivo:'miembros'})
                  
             }
             //connection.release();
@@ -75,6 +95,7 @@ router.get('/logout', authController.logout)
 router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
+router.post('/savemiembro', userController.savemiembro)
 //Editar usuario (POST)
 router.post('/editarusuario', userController.editarusuario)
 

@@ -123,7 +123,7 @@ exports.login = async (req, res)=>{
 
 //procedure to authenticate
 exports.isAuthenticated = async (req, res, next)=>{
-    if(req.session.user_id){
+    //if(req.session.user_id){
         if (req.cookies.jwt ) {
             try {
                 
@@ -142,10 +142,10 @@ exports.isAuthenticated = async (req, res, next)=>{
         }else{
             res.redirect('/')        
         }
-    }else{
-        console.log('No hay sesion activa')
-        res.redirect('logout')        
-    }    
+    //}else{
+   //    console.log('No hay sesion activa')
+    //    res.redirect('logout')        
+   //}    
 } 
 
 //procedure to logout
