@@ -296,6 +296,14 @@
                 </div>
   
               </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" id="sin_cedula" name="sin_cedula" type="checkbox" value="0">
+                  <label class="form-check-label">Sin Cédula</label>
+                </div>
+                
+              </div>
+
   
               <!-- Telefono -->
               <div id="" class="form-group">
@@ -328,6 +336,8 @@
                 </div>
                 
               </div>
+
+              
 
               <div class="form-group">
                 <label>Cómo nos conoció:</label>
@@ -378,6 +388,110 @@
     <!-- /.modal-dialog -->
   </div>
   <% } %>
+
+  <% if(menuactivo=="home") { %>
+    <div class="modal fade" id="modal-asignarseguimiento">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form name="form_asignarseguimiento" id="form_asignarseguimiento" action="/asignarseguimiento" method="post">
+          <div class="modal-header">
+            <h4 class="modal-title">Asignar Seguimiento</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="card card-danger">
+              
+              <div class="card-body">
+                
+                <!-- Nombre -->
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-user"></i></span>
+                    </div>
+                    <input readonly type="text" class="form-control" name="miembro_nombres" id="miembro_nombres" value=<%= mostrarDatos==true ? nombre:'' %> >
+                  </div>
+                </div>
+    
+    
+                 <!-- Apellido -->
+                 <div class="form-group">
+                  <label>Apellido:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-user"></i></span>
+                    </div>
+                    <input readonly type="text" class="form-control" name="miembro_apellidos" id="miembro_apellidos" value=<%= mostrarDatos==true ? apellido:'' %>>
+                  </div>
+    
+                </div>
+
+                <!-- Telefono -->
+                <div id="" class="form-group">
+                  <label>Teléfono:</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input readonly type="text" class="form-control" data-inputmask='"mask": "(9999)999-99-99"' data-mask name="miembro_telefono" id="miembro_telefono" value=<%= mostrarDatos==true ? telefono:'' %> >
+                  </div>
+    
+                </div>
+    
+                
+  
+                <div class="form-group">
+                  <label>Asignado a:</label>
+                  <select class="form-control" style="width: 100%;" name="seguimiento_assigned_to" id="seguimiento_assigned_to">
+                    <option value="">Seleccione</option>
+                    <option value="1">Karen Meza</option>
+                    <option value="2">Mildray Velázquez</option>
+                    <option value="3">Anider Munairdjy</option>
+                    <option value="4">Adriana Lugo</option>
+                    <option value="5">Neidys Camargo</option>
+                    <option value="6">Daniel Iturriago</option>
+                    <option value="7">Richard Cordido</option>
+                    <option value="8">Oscar Gómez</option>
+                    <option value="9">Darío Fargas</option>
+                    <option value="10">Edwin Rojas</option>
+                   
+                    
+                  </select>
+                </div>
+    
+                <div class="form-group">
+                 
+                  <div class="input-group">
+                    
+                    <input type="text" class="form-control" id="miembro_id" name="miembro_id">
+                  </div>
+    
+                </div>
+  
+                
+                
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+    
+    
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Asignar</button>
+          </div>
+        </form>  
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <% } %>
 
 
 
@@ -629,6 +743,40 @@ $.widget.bridge('uibutton', $.ui.button)
     }
   });
 
+
+  //VALIDAR ASIGNAR SEGUIMIENTO_ASSIGNED_TO
+  $.validator.setDefaults({
+    submitHandler: function () {
+      document.getElementById("form_asignarseguimiento").submit();
+    }
+  });
+  $('#form_asignarseguimiento').validate({
+    rules: {
+      seguimiento_assigned_to: {
+        required: true
+      },
+      
+    },
+    messages: {
+      seguimiento_assigned_to: {
+        required: "Debe asignarlo a un Ministro"
+      
+      },
+    
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+
   
   
 
@@ -811,11 +959,30 @@ $('#miembro_nacimiento').val($('#nacimiento_html_'+miembro_id).val())
 $('select option[value="'+$('#nos_conocio_html_'+miembro_id).val()+'"]').attr("selected", true);
 
 $("#form_miembros").attr("action", '/saveregistroasistencia')
+//$("#sin_cedula").attr("checked", false)
+document.getElementById("sin_cedula").checked= false;
 
 
 $('#modal-miembros').modal('show')
 
-  }
+  }//FIN MODAL REGISTRO
+
+
+  //MODAL ASIGNAR SEGUIMIENTO
+  function modalAsignarSeguimiento(miembro_id){
+
+//alert(miembro_id);
+$('#miembro_nombres').val($('#nombre_html_'+miembro_id).val())
+$('#miembro_apellidos').val($('#apellido_html_'+miembro_id).val())
+$('#miembro_telefono').val($('#telefono_html_'+miembro_id).val())
+$('#miembro_id').val($('#miembro_id_html_'+miembro_id).val())
+
+//$("#form_miembros").attr("action", '/saveregistroasistencia')
+
+
+$('#modal-asignarseguimiento').modal('show')
+
+  }//FIN MODALASIGNAR SEGUIMIENTO
 
 
   //LIMPIAR MODALES
@@ -838,6 +1005,21 @@ $('#miembro_primera_vez').on('click', function (e) {
   $(this).val(1)
   else
   $(this).val(0)
+
+})
+
+
+$('#sin_cedula').on('click', function (e) {
+  var hoy = new Date();
+  var fecha = hoy.getDate() +  ( hoy.getMonth() + 1 ) +  hoy.getFullYear();
+  var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+  let result = hora.replace(":", "")
+  let result2 = result.replace(":", "")
+
+if($(this).is(':checked'))
+$('#miembro_cedula').val(hoy.getFullYear()+'-'+result2)
+else
+$('#miembro_cedula').val('')
 
 })
 

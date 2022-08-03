@@ -14,18 +14,21 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
     
     conexion.getConnection(function(err, connection) {
 
-        let sql=connection.query( 'SELECT * FROM cultos_asistencia ca INNER JOIN miembros m ON ca.miembro_id=m.miembro_id WHERE DATE_FORMAT(ca.ca_fecha_culto, "%Y-%m-%d") = CURDATE()', function(error, rows) {
+        let sql=connection.query( 'SELECT ca.*, m.*, mi.*, s.seguimiento_id FROM cultos_asistencia ca INNER JOIN miembros m ON ca.miembro_id=m.miembro_id LEFT OUTER JOIN seguimientos s ON s.miembro_id=m.miembro_id LEFT OUTER JOIN ministros mi ON mi.ministro_id=s.seguimiento_assigned_to WHERE DATE_FORMAT(ca.ca_fecha_culto, "%Y-%m-%d") = CURDATE()', function(error, rows) {
             if(error){
                 throw error
             }else{
-                   console.log(sql) 
+                   //console.log(rows) 
                 const miuser_id = req.mi_user_id
                 //POR USER_ID
                 /*connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {*/
-                connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id', function(error, results) {
+               
+                connection.query('SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id LEFT OUTER JOIN ministros mi ON mi.ministro_id=s.seguimiento_assigned_to ORDER BY mi.ministro_id Asc', function(error, results) {
                     console.log(req.session.user_id)
                     //console.log(results)
-                    res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home'})
+                    res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home',
+                    titulo_pagina:'Dashboard'
+                })
 
                 console.log('BD CONECTADA')
 
@@ -59,7 +62,7 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
                 throw error
             }else{
                  //console.log(rows)   
-                res.render('usuarios', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'usuario'})
+                res.render('usuarios', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'usuario', titulo_pagina:'Usuarios'})
                  
             }
             //connection.release();
@@ -83,7 +86,8 @@ router.get('/miembros',authController.isAuthenticated, (req, res) =>{
                    
                     alert_miembro:false,alert:false,mostrarDatos:false, menuactivo:'miembros'
                 ,user_name:req.mi_user_name
-                ,user_type:req.mi_user_type
+                ,user_type:req.mi_user_type,
+                titulo_pagina:'Miembros'
             })
                  
             }
@@ -110,6 +114,7 @@ router.get('/registroasistencia',authController.isAuthenticated, (req, res) =>{
                 ,user_name:req.mi_user_name
                 ,user_type:req.mi_user_type
                 ,user_id:req.mi_user_id
+                ,titulo_pagina:'Registro Asistencia'
             })
                  
             }
@@ -130,6 +135,7 @@ router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
 router.post('/savemiembro', userController.savemiembro)
 router.post('/saveregistroasistencia', userController.saveregistroasistencia)
+router.post('/asignarseguimiento', userController.asignarseguimiento)
 //Editar (POST)
 router.post('/editarusuario', userController.editarusuario)
 router.post('/editarmiembro', userController.editarmiembro)

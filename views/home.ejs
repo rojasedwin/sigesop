@@ -87,6 +87,7 @@
                     <th>Nombre y Apellido</th>
                     <th>Telefono</th>
                     <th>Sexo</th>
+                    <th>-</th>
                     
                   </tr>
                   </thead>
@@ -96,10 +97,29 @@
                     <% if(user.ca_primera_vez==1) { %>
                   <tr>
                     
-                    <td><%= cont %></td>
+                    <td>
+                      <%= cont %>
+                      <input type="hidden" id='nombre_html_<%= user.miembro_id %>' value='<%=user.miembro_nombres %>' >
+
+                      <input type="hidden" id='apellido_html_<%= user.miembro_id %>' value='<%=user.miembro_apellidos %>' >
+
+                      <input type="hidden" id='telefono_html_<%= user.miembro_id %>' value='<%=user.miembro_telefono %>' >
+
+                      <input type="hidden" id='miembro_id_html_<%= user.miembro_id %>' value='<%=user.miembro_id %>' >
+
+
+                    </td>
                     <td><%= user.miembro_nombres %> <%= user.miembro_apellidos %></td>
                     <td><%= user.miembro_telefono %></td>
                     <td><%= ((user.miembro_sexo==0)?'M':'F') %></td>
+                    <td>
+                      <% if(user.seguimiento_id>0) { %>
+                        <span class="badge badge-info">Asignado</span>
+                      <% } else{ %>
+                        <button title="Asignar Seguimiento" onclick="modalAsignarSeguimiento(<%= user.miembro_id %>)" data-id='<%=user.miembro_id %>' type="button" class="btn btn-sm btn-outline-primary btn-block btnAsignarSeguimiento"><i class="fa fa-user-plus"></i></button>
+                        <% } %>
+
+                    </td>
                     
                   </tr>
                    <% } %>
@@ -140,7 +160,13 @@
                   <% seguimiento.forEach ((user) =>{ %>  
                   <tr>
                     
-                    <td><%= user.miembro_nombres %>  <%= user.miembro_apellidos %></td>
+                    <td>
+                      <%= user.miembro_nombres %>  <%= user.miembro_apellidos %>
+                      <% if(user.seguimiento_id>0) { %>
+                        <br><span class="badge badge-warning"><%= user.ministro_nombre %> <%= user.ministro_apellido %></span>
+                        <% } %>
+
+                    </td>
                     <td><%= user.miembro_telefono %></td>
                     
                   </tr>

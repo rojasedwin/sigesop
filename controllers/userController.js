@@ -331,3 +331,38 @@ module.exports.editarmiembro = async (req,res)=>{
     })
     
 }
+
+module.exports.asignarseguimiento = (req, res) =>{
+    try {
+        const seguimiento_assigned_to= req.body.seguimiento_assigned_to
+        const miembro_id= req.body.miembro_id
+       
+        console.log('Asignado a: '+seguimiento_assigned_to+' el miembro ID: '+miembro_id)
+
+        let sql=conexion.query( 'INSERT INTO seguimientos set ?', {
+            miembro_id:miembro_id, 
+            seguimiento_assigned_to:seguimiento_assigned_to,
+            }, (error, results) =>{
+
+                if(error){
+                    throw error
+                }else{
+                    console.log(sql)
+                    console.log('EL ID insertado es: '+results.insertId)
+                    res.redirect('home')
+                    
+                }
+
+            })
+       
+
+            
+            
+            
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}//FIN ASIGNAR SEGUIMIENTO
