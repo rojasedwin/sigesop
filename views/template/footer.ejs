@@ -234,6 +234,152 @@
 <% } %>
 
 
+<% if(menuactivo=="registroasistencia") { %>
+  <div class="modal fade" id="modal-miembros">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form name="form_miembros" id="form_miembros" action="/saveregistroasistencia" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">Registrar Asistencia</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="card card-danger">
+            
+            <div class="card-body">
+              
+              <!-- Nombre -->
+              <div class="form-group">
+                <label>Nombre:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-user"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="miembro_nombres" id="miembro_nombres" value=<%= mostrarDatos==true ? nombre:'' %> >
+                </div>
+              </div>
+  
+  
+               <!-- Apellido -->
+               <div class="form-group">
+                <label>Apellido:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-user"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="miembro_apellidos" id="miembro_apellidos" value=<%= mostrarDatos==true ? apellido:'' %>>
+                </div>
+  
+              </div>
+  
+              <div class="form-group">
+                <label>Sexo:</label>
+                
+                <select class="form-control" style="width: 100%;" name="miembro_sexo" id="miembro_sexo">
+                  <option value="0">Masculino</option>
+                  <option value="1">Femenino</option>
+                 
+                </select>
+              </div>
+  
+               <!-- Cédula -->
+               <div class="form-group">
+                <label>Cédula:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
+                </div>
+  
+              </div>
+  
+              <!-- Telefono -->
+              <div id="" class="form-group">
+                <label>Teléfono:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask='"mask": "(9999)999-99-99"' data-mask name="miembro_telefono" id="miembro_telefono" value=<%= mostrarDatos==true ? telefono:'' %> >
+                </div>
+  
+              </div>
+  
+              <div id="" class="form-group">
+                <label>Fecha Nacimiento:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="miembro_nacimiento" id="miembro_nacimiento" value=<%= mostrarDatos==true ? nacimiento:'' %> >
+                </div>
+  
+              </div>
+             
+  
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" id="miembro_primera_vez" name="miembro_primera_vez" type="checkbox" value="0">
+                  <label class="form-check-label">Primera Vez</label>
+                </div>
+                
+              </div>
+
+              <div class="form-group">
+                <label>Cómo nos conoció:</label>
+                <select class="form-control" style="width: 100%;" name="miembro_nos_conocio" id="miembro_nos_conocio">
+                  <option value="-1">Seleccione</option>
+                  <option value="0">Redes Sociales</option>
+                  <option value="1">Invitación</option>
+                  <option value="2">Otros</option>
+                 
+                  
+                </select>
+              </div>
+  
+              <div class="form-group">
+               
+                <div class="input-group">
+                  
+                  <input type="hidden" class="form-control" id="miembro_id" name="miembro_id">
+                </div>
+  
+              </div>
+
+              <div class="form-group">
+               
+                <div class="input-group">
+                  
+                  <input type="hidden" class="form-control" id="add_by" name="add_by">
+                </div>
+  
+              </div>
+  
+              
+              
+            </div>
+            <!-- /.card-body -->
+          </div>
+  
+  
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+      </form>  
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <% } %>
+
+
 
 
 
@@ -326,6 +472,9 @@ $.widget.bridge('uibutton', $.ui.button)
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+
 <script>
   $(function () {
     
@@ -353,7 +502,8 @@ $.widget.bridge('uibutton', $.ui.button)
       "info": true,
       "autoWidth": true,
       "responsive": false,
-    });
+      "buttons": ["excel"]
+    }).buttons().container().appendTo('#tablamiembros_wrapper .col-md-6:eq(0)');
 
 
     //Datemask dd/mm/yyyy
@@ -573,6 +723,32 @@ setTimeout(function(){
 
   }
 
+  function deleteMiembro(miembro_id){
+   
+
+   Swal.fire({
+   title: '¿Realmente desea eliminar este miembro?',
+   text: "Se perderán todos los datos!",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Eliminar',
+   cancelButtonText: 'Cancelar'
+ }).then((result) => {
+   if (result.isConfirmed) {
+     window.location="/deletemiembro/"+miembro_id;
+
+     setTimeout(function(){
+       toastr.success('Miembro eliminado!') 
+     }, 3000);
+
+   }
+ })
+
+
+ }
+
   function limpiarModalUser(){
       document.getElementById("form_usuarios").reset();
   }
@@ -597,7 +773,7 @@ $('#modal-default').modal('show')
 //MODAL EDITAR MIEMBRO
   function modalMiembro(miembro_id){
 
-//alert(user_id);
+
 $('#miembro_nombres').val($('#name_html_'+miembro_id).val())
 $('#miembro_apellidos').val($('#apellido_html_'+miembro_id).val())
 $('#miembro_id').val($('#id_html_'+miembro_id).val())
@@ -617,6 +793,31 @@ $('#modal-miembros').modal('show')
   }
 
 
+  //MODAL EDITAR MIEMBRO REGISTRO
+  function modalMiembroRegistro(miembro_id){
+
+//alert(miembro_id);
+$('#miembro_nombres').val($('#name_html_'+miembro_id).val())
+$('#miembro_apellidos').val($('#apellido_html_'+miembro_id).val())
+$('#miembro_id').val($('#id_html_'+miembro_id).val())
+$('#miembro_sexo').val($('#sexo_html_'+miembro_id).val())
+$('#miembro_telefono').val($('#telefono_html_'+miembro_id).val())
+$('#miembro_cedula').val($('#cedula_html_'+miembro_id).val())
+$('#add_by').val($('#user_id_html_'+miembro_id).val())
+
+//var fechaformat=moment($('#nacimiento_html_'+miembro_id).val(),"YYYY-MM-DD").format('DD-MM-YYYY')
+
+$('#miembro_nacimiento').val($('#nacimiento_html_'+miembro_id).val())
+$('select option[value="'+$('#nos_conocio_html_'+miembro_id).val()+'"]').attr("selected", true);
+
+$("#form_miembros").attr("action", '/saveregistroasistencia')
+
+
+$('#modal-miembros').modal('show')
+
+  }
+
+
   //LIMPIAR MODALES
   $('.btnNewUser').on('click', function (e) {
 
@@ -630,6 +831,15 @@ $('#modal-miembros').modal('show')
 	  document.getElementById("form_miembros").reset(); 
 	  $('#modal-miembros').modal('show')
 	})
+
+$('#miembro_primera_vez').on('click', function (e) {
+
+  if($(this).is(':checked'))
+  $(this).val(1)
+  else
+  $(this).val(0)
+
+})
 
  
 </script>

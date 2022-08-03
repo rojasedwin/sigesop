@@ -6,6 +6,7 @@ const authController = require('../controllers/authController')
 const { Router } = require('express')
 
 const conexion = require('../database/db')
+const moment = require('moment')
 
 
 //RUTAS GET
@@ -13,14 +14,15 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
     
     conexion.getConnection(function(err, connection) {
 
-        connection.query( 'SELECT * FROM miembros where miembro_primera_vez=1', function(error, rows) {
+        let sql=connection.query( 'SELECT * FROM cultos_asistencia ca INNER JOIN miembros m ON ca.miembro_id=m.miembro_id WHERE DATE_FORMAT(ca.ca_fecha_culto, "%Y-%m-%d") = CURDATE()', function(error, rows) {
             if(error){
                 throw error
             }else{
-
+                   console.log(sql) 
                 const miuser_id = req.mi_user_id
-
-                connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {
+                //POR USER_ID
+                /*connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {*/
+                connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id', function(error, results) {
                     console.log(req.session.user_id)
                     //console.log(results)
                     res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home'})
@@ -92,6 +94,32 @@ router.get('/miembros',authController.isAuthenticated, (req, res) =>{
     
 })
 
+router.get('/registroasistencia',authController.isAuthenticated, (req, res) =>{
+    
+    //conexion.getConnection(function(err, connection) {
+
+        conexion.query( 'SELECT m.*,date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac, ca.ca_id FROM miembros m LEFT OUTER JOIN cultos_asistencia ca ON m.miembro_id=ca.miembro_id and DATE_FORMAT(ca.ca_fecha_culto, "%Y-%m-%d") = CURDATE()', function(error, rows) {
+            if(error){
+                throw error
+            }else{
+                //console.log(rows)   
+                //res.send(rows)
+                res.render('registroasistencia', {rows:rows, 
+                   
+                    alert_miembro:false,alert:false,mostrarDatos:false, menuactivo:'registroasistencia'
+                ,user_name:req.mi_user_name
+                ,user_type:req.mi_user_type
+                ,user_id:req.mi_user_id
+            })
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})
+
 router.get('/logout', authController.logout)
 
 
@@ -101,6 +129,7 @@ router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
 router.post('/savemiembro', userController.savemiembro)
+router.post('/saveregistroasistencia', userController.saveregistroasistencia)
 //Editar (POST)
 router.post('/editarusuario', userController.editarusuario)
 router.post('/editarmiembro', userController.editarmiembro)
@@ -119,7 +148,23 @@ router.get('/deleteuser/:id', ( req, res ) =>{
     
     })
     
-    });
+});
+
+router.get('/deletemiembro/:id', ( req, res ) =>{
+    const id=req.params.id
+
+   
+    conexion.query('DELETE FROM miembros WHERE miembro_id=?', [id], (error, results) =>{
+        if(error){
+         throw error;
+        }else{
+            res.redirect('/miembros')
+           // console.log('eliminado el user_id: '+id)
+        }
+    
+    })
+    
+});
 
 
 module.exports  = router

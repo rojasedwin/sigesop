@@ -183,7 +183,118 @@ exports.savemiembro = async (req, res) =>{
     } catch (error) {
         console.error(error)
     }
-}
+}//FIN SAVE MIEMBRO
+
+
+
+exports.saveregistroasistencia = async (req, res) =>{
+    try {
+        const miembro_nombres= req.body.miembro_nombres
+        const miembro_apellidos= req.body.miembro_apellidos
+        const miembro_sexo= req.body.miembro_sexo
+        const miembro_telefono= req.body.miembro_telefono
+        const miembro_nacimiento= req.body.miembro_nacimiento
+        const miembro_nos_conocio= req.body.miembro_nos_conocio
+        const miembro_cedula= req.body.miembro_cedula
+        const miembro_primera_vez= req.body.miembro_primera_vez
+        const miembro_id= req.body.miembro_id
+        const user_id= req.body.add_by
+
+        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+     
+        
+        
+        let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+        let primera_vez = typeof miembro_primera_vez !== 'undefined' ? miembro_primera_vez : '0'
+
+        console.log(user_id)
+        if(miembro_id>0){
+            let Sql=conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
+                {  
+                miembro_nombres:miembro_nombres, 
+                miembro_apellidos:miembro_apellidos,miembro_telefono:miembro_telefono, 
+                miembro_cedula:miembro_cedula,
+                miembro_nacimiento:nacimientoformat,
+                miembro_sexo:miembro_sexo,
+                miembro_nos_conocio:miembro_nos_conocio,
+                miembro_primera_vez:primera_vez
+            }, miembro_id ], (error, results) => {
+                if(error) {
+                    console.error(error)
+                } else {
+                    //console.log(Sql) 
+                    //REGISTRO EN TABLA ASISTENCIA CULTO
+                    let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
+                        miembro_id:miembro_id, 
+                        ca_add_by:user_id,
+                        ca_primera_vez:primera_vez==0?0:1
+                        }, (error, results) =>{
+
+                            if(error){
+                                throw error
+                            }else{
+                                //console.log(sql)
+                                res.redirect('registroasistencia');
+                                
+                            }
+
+                        })
+
+
+
+                
+                }
+            })
+
+        }//EXISTE MIEMBRO
+        else{
+
+            conexion.query( 'INSERT INTO miembros set ?', {miembro_nombres:miembro_nombres, miembro_apellidos:miembro_apellidos,miembro_telefono:miembro_telefono, 
+                miembro_cedula:miembro_cedula,
+                miembro_nacimiento:nacimientoformat,
+                miembro_sexo:miembro_sexo,
+                miembro_nos_conocio:miembro_nos_conocio,
+                    }, (error, results) =>{
+
+                    if(error){
+                        throw error
+                    }else{
+                        let ultimo_id=results.insertId
+                        console.log('EL ID insertado es: '+ultimo_id)
+                       
+                        let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
+                            miembro_id:ultimo_id, 
+                            ca_add_by:user_id,
+                            ca_primera_vez:primera_vez==0?0:1
+                            }, (error, results) =>{
+    
+                                if(error){
+                                    throw error
+                                }else{
+                                    console.log('EL ID insertado es: '+results.insertId)
+                                    res.redirect('registroasistencia');
+                                    
+                                }
+    
+                            })
+
+                    }
+
+                })
+
+        }
+
+            
+           
+            
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}//FIN SAVE REGISTRO ASISTENCIA
 
 
 

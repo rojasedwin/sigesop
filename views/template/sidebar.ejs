@@ -74,6 +74,7 @@
               </p>
             </a>
           </li>
+          <li class="nav-header">ADMINISTRACION</li>
           <% if(user_type==1) { %>
           <li class="nav-item">
             <a href="/usuarios" class='nav-link <%= menuactivo=="usuario" ? "active":"" %>'>
@@ -97,6 +98,16 @@
               </a>
             </li>
             <% } %>
+
+            <li class="nav-header">CULTOS</li>
+          <li class="nav-item">
+            <a href="/registroasistencia" class='nav-link <%= menuactivo=="registroasistencia" ? "active":"" %> ' >
+              <i class="nav-icon fa fa-tasks"></i>
+                Registro Asistencia
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
 
           <li class="nav-header">SALIDA DEL SISTEMA</li>
           <li class="nav-item">
