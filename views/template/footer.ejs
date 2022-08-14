@@ -200,17 +200,6 @@
             </div>
            
 
-            <div class="form-group">
-              <label>Cómo nos conoció:</label>
-              <select class="form-control" style="width: 100%;" name="miembro_nos_conocio" id="miembro_nos_conocio">
-                <option value="-1">Seleccione</option>
-                <option value="0">Redes Sociales</option>
-                <option value="1">Invitación</option>
-                <option value="2">Otros</option>
-               
-                
-              </select>
-            </div>
 
             <div class="form-group">
              
@@ -358,6 +347,32 @@
                   
                 </select>
               </div>
+
+              <!-- Observaciones -->
+              <div class="form-group">
+                <label>Observaciones:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-file-text"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="miembro_observaciones" id="miembro_observaciones" value=<%= mostrarDatos==true ? observaciones:'' %>>
+                </div>
+  
+              </div>
+
+              <div class="form-group">
+                <label>Hora Culto:</label>
+                
+                <select class="form-control" style="width: 100%;" name="miembro_horario" id="miembro_horario">
+                  <option value="09:00 am">09:00 am</option>
+                  <option value="12:00 pm">12:00 pm</option>
+                  <option value="09:00 am / 12:00 pm">Ambos</option>
+                  <option value="06:00 pm">06:00 pm</option>
+                 
+                </select>
+              </div>
+  
+              
   
               <div class="form-group">
                

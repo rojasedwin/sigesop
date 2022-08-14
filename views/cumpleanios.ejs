@@ -1,0 +1,70 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+           
+            <!-- /.col -->
+
+            <div class="col-md-6">
+              <!-- USERS LIST -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Cumpleaños de Hoy</h3>
+
+                  <div class="card-tools">
+                    <span class="badge badge-danger"><%= cumpleanios.length %> Cumpleañeros</span>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <!--<button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>-->
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <ul class="users-list clearfix">
+                    <% cumpleanios.forEach ((item) =>{ %>      
+                    <li>
+                      <img src="<%= ((item.miembro_sexo==0)?'dist/img/avatar5.png':'dist/img/avatar3.png') %>" alt="User Image">
+                      <a class="users-list-name" href="#"><%= item.miembro_nombres %> <%= item.miembro_apellidos %></a>
+                      <span class="users-list-date"><%= item.edad_actual %> años</span>
+                    </li>
+                    <% }) %>
+                    
+                    
+                    
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer text-center">
+                  <!--<a href="javascript:">View All Users</a>-->
+                </div>
+                <!-- /.card-footer -->
+              </div>
+              <!--/.card -->
+            </div>
+
+
+
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

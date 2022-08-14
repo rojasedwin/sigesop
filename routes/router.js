@@ -22,18 +22,41 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
                 const miuser_id = req.mi_user_id
                 //POR USER_ID
                 /*connection.query( 'SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id WHERE seguimiento_assigned_to = ?',[miuser_id], function(error, results) {*/
-               
-                connection.query('SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id LEFT OUTER JOIN ministros mi ON mi.ministro_id=s.seguimiento_assigned_to ORDER BY mi.ministro_id Asc', function(error, results) {
-                    console.log(req.session.user_id)
-                    //console.log(results)
-                    res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home',
-                    titulo_pagina:'Dashboard'
+
+                let sql=connection.query('SELECT m.*,YEAR(CURDATE())-YEAR(m.miembro_nacimiento)  AS edad_actual FROM miembros m WHERE EXTRACT( DAY from m.miembro_nacimiento)=DAY(NOW()) AND EXTRACT( MONTH from m.miembro_nacimiento)=MONTH(NOW())', function(error, resultados) {
+                    
+                    if(error){
+                        throw error
+                    }else{
+                        console.log(resultados)
+
+
+                        connection.query('SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id LEFT OUTER JOIN ministros mi ON mi.ministro_id=s.seguimiento_assigned_to ORDER BY mi.ministro_id Asc', function(error, results) {
+                            console.log(req.session.user_id)
+                            //console.log(results)
+                            res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home',
+                            titulo_pagina:'Dashboard'
+                            ,cumpleanios:resultados
+                            
+                        })
+        
+                        console.log('BD CONECTADA')
+        
+                        }) 
+        
+                    
+                    
+                    
+                    
+                    
+                    
+                    }
+                    
                 })
 
-                console.log('BD CONECTADA')
-
-                }) 
-
+               
+               
+                
 
                 
             }
@@ -70,7 +93,26 @@ router.get('/usuarios',authController.isAuthenticated, (req, res) =>{
         });
    // })
     
-})
+})//fin usuarios GET
+
+router.get('/cumpleanios',authController.isAuthenticated, (req, res) =>{
+    
+    //conexion.getConnection(function(err, connection) {
+
+        conexion.query( 'SELECT m.*,YEAR(CURDATE())-YEAR(m.miembro_nacimiento)  AS edad_actual FROM miembros m WHERE EXTRACT( DAY from m.miembro_nacimiento)=DAY(NOW()) AND EXTRACT( MONTH from m.miembro_nacimiento)=MONTH(NOW())', function(error, rows) {
+            if(error){
+                throw error
+            }else{
+                 console.log(rows)   
+                res.render('cumpleanios', {cumpleanios:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'home', titulo_pagina:'Cumpleaños'})
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})//fin CUMPLEANIOS GET
 
 router.get('/miembros',authController.isAuthenticated, (req, res) =>{
     

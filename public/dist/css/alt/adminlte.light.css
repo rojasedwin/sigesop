@@ -24836,7 +24836,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   font-size: 0.875rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
 }
 
 .users-list-date {
