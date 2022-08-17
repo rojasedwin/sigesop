@@ -517,6 +517,67 @@
     <% } %>
 
 
+    <% if(menuactivo=="aperturaservicio") { %>
+      <div class="modal fade" id="modal-servicio">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form name="form_servicio" id="form_servicio" action="/saveservicio" method="post">
+            <div class="modal-header">
+              <h4 class="modal-title">Apertura de Registro de Asistencia</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <div class="card card-danger">
+                
+                <div class="card-body">
+                  
+                
+                  <div id="" class="form-group">
+                    <label>Fecha Servicio:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="fecha_culto" id="fecha_culto" value=<%= mostrarDatos==true ? fecha_culto:'' %> >
+                    </div>
+      
+                  </div>
+
+                  <div id="" class="form-group">
+                    <label>Abierto Hasta:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                      </div>
+                      <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="abierto_hasta" id="abierto_hasta" value=<%= mostrarDatos==true ? abierto_hasta:'' %> >
+                    </div>
+      
+                  </div>
+      
+            
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+      
+      
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>  
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <% } %>
+
+
 
 
 
@@ -903,6 +964,50 @@ $.widget.bridge('uibutton', $.ui.button)
     }
   });
 
+
+  //VALIDAR APERTURA SERVICIO
+  $.validator.setDefaults({
+    submitHandler: function () {
+      document.getElementById("form_servicio").submit();
+    }
+  });
+  $('#form_servicio').validate({
+    rules: {
+      fecha_culto: {
+        required: true
+      },
+      abierto_hasta: {
+        required: true
+      },
+      
+    },
+    messages: {
+      fecha_culto: {
+        required: "Debe ingresr una fecha del Servicio"
+      
+      },
+      abierto_hasta: {
+        required: "Debe ingresr una fecha límite del registro"
+      
+      },
+    
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+
+
+
+
   
   
 
@@ -1124,6 +1229,12 @@ $('#modal-asignarseguimiento').modal('show')
 	  document.getElementById("form_miembros").reset(); 
 	  $('#modal-miembros').modal('show')
 	})
+
+  $('.btnNewServicio').on('click', function (e) {
+
+document.getElementById("form_servicio").reset(); 
+$('#modal-servicio').modal('show')
+})
 
 $('#miembro_primera_vez').on('click', function (e) {
 

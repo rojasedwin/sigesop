@@ -482,7 +482,8 @@ exports.searchcedula =  (req, res) =>{
                                 ,alert_miembro:false
                                 ,mostrarDatos:false
                                 ,dias_semana:dias_semana,
-                                mi_dia:mi_dia
+                                mi_dia:mi_dia,
+                                cedula:cedula
                              })
                         }else{
 
@@ -624,3 +625,42 @@ exports.savemiembroregistro = async (req, res) =>{
         console.error(error)
     }
 }//FIN SAVE MIEMBRO
+
+
+
+exports.saveservicio = async (req, res) =>{
+    try {
+        const fecha_culto= req.body.fecha_culto
+        const abierto_hasta= req.body.abierto_hasta
+        
+
+        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+     
+        
+        
+        let fechacultoformat = await moment(fecha_culto,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+        let abiertohastaformat = await moment(abierto_hasta,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+        console.log(fecha_culto)
+       
+        conexion.query( 'INSERT INTO fechas_culto set ?', {fecha_culto:fechacultoformat, abierto_hasta:abiertohastaformat
+            
+            }, (error, results) =>{
+
+                if(error){
+                    throw error
+                }else{
+                    res.redirect('aperturaservicio')
+                    
+                }
+
+            })
+            
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}//FIN SAVE SERVICIO

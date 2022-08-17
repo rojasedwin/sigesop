@@ -205,6 +205,64 @@ router.get('/registroasistencia',authController.isAuthenticated, (req, res) =>{
 
 router.get('/logout', authController.logout)
 
+router.get('/aperturaservicio',authController.isAuthenticated, (req, res) =>{
+    
+    //conexion.getConnection(function(err, connection) {
+
+        conexion.query( 'SELECT culto_id, date_format(abierto_hasta, "%d-%m-%Y") as abierto_hasta, date_format(fecha_culto,"%d-%m-%Y") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, rows) {
+            if(error){
+                throw error
+            }else{
+                 //console.log(rows)   
+                res.render('aperturaservicio', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'aperturaservicio', titulo_pagina:'Servicios'})
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})//fin apertura servicio web GET
+
+router.get('/asistenciaregistroweb',authController.isAuthenticated, (req, res) =>{
+    
+    conexion.query( 'SELECT culto_id, date_format(abierto_hasta, "%d-%m-%Y") as abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, rows) {
+        if(error){
+            throw error
+        }else{
+             dia_culto=rows[0].fecha_culto
+
+             console.log(dia_culto)
+
+             conexion.query( 'SELECT m.*,date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac FROM miembros m where m.miembro_asistencia_culto=?',[dia_culto], (error, results) =>{
+
+                if(error){
+                    throw error
+                }else{
+                     console.log(results)   
+                    //res.send(rows)
+                    res.render('asistenciaregistroweb', {rows:results, 
+                       
+                        alert_miembro:false,alert:false,mostrarDatos:false, menuactivo:'asistenciaregistroweb'
+                    ,user_name:req.mi_user_name
+                    ,user_type:req.mi_user_type,
+                    titulo_pagina:'Registro Web'
+                })
+                     
+                }
+
+
+            })
+             
+        }
+        
+    })
+
+        
+  
+})//ASISTENCIA REGISTRO WEB
+
+
 
 
 //Guardar POST
@@ -212,6 +270,7 @@ router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
 router.post('/savemiembro', userController.savemiembro)
+router.post('/saveservicio', userController.saveservicio)
 router.post('/savemiembroregistro', userController.savemiembroregistro)
 router.post('/saveregistroasistencia', userController.saveregistroasistencia)
 router.post('/asignarseguimiento', userController.asignarseguimiento)

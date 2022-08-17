@@ -1,0 +1,64 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Servicio</h3>
+                  <button  id="btnServicio" style="float:right" type="button" class="btn btn-primary btn-sm btnNewServicio" data-toggle="modal" data-target="#modal-servicio">
+                    Nuevo
+                    <i class="fa fa-file"></i></button>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <table id="" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                     
+                      <th>Fecha Servicio</th>
+                      <th>Abierto Hasta</th>
+                     
+                    </tr>
+                    </thead>
+                    <tbody>
+                  
+                    <tr>
+                     
+                      
+                      <td><%= rows[0].fecha_culto %></td>
+                      <td><%= rows[0].abierto_hasta %></td>
+                      
+                    </tr>
+                  
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

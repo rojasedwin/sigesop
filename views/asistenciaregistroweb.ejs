@@ -1,0 +1,66 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Registro de Asistencia Web</h3>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <table id="tablamiembros" class="table table-bordered table-hover ">
+                    <thead>
+                    <tr>
+                     
+                      <th>Nombre y Apellido</th>
+                      <th class="d-none d-sm-none d-md-table-cell">Sexo</th>
+                      <th>Teléfono</th>
+                     
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rows.forEach ((item) =>{ %>      
+                    <tr>
+                      <td>
+                        <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
+                      </td>
+                     
+                      <td class="d-none d-sm-none d-md-table-cell"><%= item.miembro_sexo==0 ? 'M':'F' %></td>
+                      <td><%= item.miembro_telefono %></td>
+                      
+                    </tr>
+                    <% }) %>
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

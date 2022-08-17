@@ -126,8 +126,8 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Registro para nuestro culto del día <%= dias_semana[mi_dia] %> <%= dia_culto %></h1>
-        <p class="lead text-muted">Dios te bendiga. Somos CCLR tu familia !</p>
+        <h1 class="fw-light">Registro para nuestro servicio del día <%= dias_semana[mi_dia] %> <%= dia_culto %></h1>
+        <p class="lead text-muted">De parte de los Apóstoles Hugo y Mariela te damos la más cordial bienvenida a tu casa. ¡Somos CCLR tu familia! Dios te bendiga</p>
         <!--<p>
           <a href="#" class="btn btn-primary my-2">Main call to action</a>
           <a href="#" class="btn btn-secondary my-2">Secondary action</a>
@@ -296,8 +296,7 @@ $.widget.bridge('uibutton', $.ui.button)
 
 <% if(alert_registro) { %>
     <script>
-  //alert('modal');
-  $('#btnMiembro').trigger('click');
+
   var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -312,9 +311,13 @@ $.widget.bridge('uibutton', $.ui.button)
     }
   });
   setTimeout(function(){
-    toastr.success('Registro creado!') 
-  }, 1000);
+    toastr.success('Gracias por tu Registro!') 
+  }, 100);
   
+  
+  setTimeout(function(){
+    window.location='/registroweb'
+     }, 4000);
     </script>
   <% } %>  
   
