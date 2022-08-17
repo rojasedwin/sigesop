@@ -5,103 +5,6 @@ const {promisify}= require('util')
 const moment = require('moment')
 
 
-exports.searchcedula =  (req, res) =>{
-    try {
-        const cedula= req.body.cedula
-       
-        let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
-
-       // let passHash =  bcryptjs.hash(cedula, 10)
-
-        console.log(cedula)
-        //conexion.getConnection(function(err, connection) {
-
-
-            conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[cedula], (error, results) =>{
-                if(results[0]){
-
-                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
-                        if(miculto[0]){
-                            console.log('Cedula registrada')
-
-                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
-
-                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
-
-                            res.render('registroweb', {
-                                results:results
-                                ,miculto:miculto
-                                ,mostrarform:true
-                               ,dias_semana:dias_semana,
-                                mi_dia:mi_dia
-                            })
-                        }else{
-
-                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
-                        }
-                    })        
-
-                    
-                    //res.send(results)   
-                    /*conexion.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, misfilas) {
-                        if(error){
-                            throw error
-                        }else{
-                             //console.log(rows)   
-                             res.render('usuarios',{alert:true, user_type:req.session.user_type, user_name:req.session.user_name, rows:misfilas, alertMessage:"Este Email ya fue registrado",
-                             mostrarDatos:true,
-                             menuactivo:'usuario',
-                             alert_miembro:false,   
-                             username:user_name,
-                             user_lastname:user_lastname,
-                             user_email:user_email,
-                             user_pwd:user_pwd,
-                             user_type:user_type
-                            
-                            })
-                             
-                        }
-                       
-                    });*/
-
-
-
-                    
-                } else {
-                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
-                        if(miculto[0]){
-
-                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
-
-                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
-
-                             res.render('registrowebnuevo', {
-                                miculto:miculto
-                                ,alert_miembro:false
-                                ,mostrarDatos:false
-                                ,dias_semana:dias_semana,
-                                mi_dia:mi_dia
-                             })
-                        }else{
-
-                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
-                        }
-                    })        
-    
-                }
-            });   
-
-            
-        //})
-
-
-
-        
-    } catch (error) {
-        console.error(error)
-    }
-}
-
 
 
 //procedure to save
@@ -492,10 +395,113 @@ module.exports.confirmarregistroweb = (req,res)=>{
         if(error) {
             console.error(error)
         } else {
-            res.redirect('registroweb');
+            let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+            //res.redirect('registroweb');
+
+            conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                if(miculto[0]){
+                    console.log('Cedula registrada')
+
+                    dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                    mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                    res.render('registroweb', {
+                        results:results
+                        ,miculto:miculto
+                        ,mostrarform:false
+                        ,mostrarDatos:false
+                       ,dias_semana:dias_semana,
+                        mi_dia:mi_dia,
+                        alert_registro:true
+                    })
+                }else{
+
+                   res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                }
+            })        
+
+
         }
     })
     
+}
+
+
+exports.searchcedula =  (req, res) =>{
+    try {
+        const cedula= req.body.cedula
+       
+        let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+
+       // let passHash =  bcryptjs.hash(cedula, 10)
+
+        console.log(cedula)
+      
+
+
+            conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[cedula], (error, results) =>{
+                if(results[0]){
+
+                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                        if(miculto[0]){
+                            console.log('Cedula registrada')
+
+                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                            res.render('registroweb', {
+                                results:results
+                                ,miculto:miculto
+                                ,mostrarform:true
+                               ,dias_semana:dias_semana,
+                                mi_dia:mi_dia,
+                                alert_registro:false
+                            })
+                        }else{
+
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                        }
+                    })        
+
+                    
+                   
+
+                    
+                } else {
+                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                        if(miculto[0]){
+
+                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                             res.render('registrowebnuevo', {
+                                miculto:miculto
+                                ,alert_miembro:false
+                                ,mostrarDatos:false
+                                ,dias_semana:dias_semana,
+                                mi_dia:mi_dia
+                             })
+                        }else{
+
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                        }
+                    })        
+    
+                }
+            });   
+
+            
+        //})
+
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 exports.savemiembroregistro = async (req, res) =>{
@@ -570,7 +576,38 @@ exports.savemiembroregistro = async (req, res) =>{
                         if(error){
                             throw error
                         }else{
-                            res.redirect('registroweb')
+                            //res.redirect('registroweb')
+
+                            conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                                if(miculto[0]){
+                                         
+                                    dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+        
+                                    mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+        
+                                    res.render('registroweb', {
+                                        miculto:miculto
+                                        ,mostrarform:false
+                                       ,dias_semana:dias_semana,
+                                        mi_dia:mi_dia,
+                                        alert_registro:true
+                                    })
+                                }else{
+        
+                                   res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                                }
+                            })  
+
+                            
+
+
+                            
+
+
+
+
+
+                            
                             
                         }
 

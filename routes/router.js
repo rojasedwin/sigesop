@@ -94,7 +94,8 @@ router.get('/registroweb', (req, res) => {
                     mostrarform:false,
                     dia_culto:dia_culto,
                     dias_semana:dias_semana,
-                    mi_dia:mi_dia
+                    mi_dia:mi_dia,
+                    alert_registro:false
                     
                 })
             }
