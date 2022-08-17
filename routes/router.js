@@ -67,8 +67,43 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
     
 })
 
-router.get('/register', (req, res) => {
+/*router.get('/register', (req, res) => {
     res.render('register',{alert:false})
+})*/
+
+router.get('/registroweb', (req, res) => {
+    //res.render('registroweb',{alert:false, mostrarform:false})
+
+    let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+    
+
+    conexion.query( 'SELECT culto_id, date_format(abierto_hasta,"%Y-%m-%d") as abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+        if(miculto[0]){
+            console.log(dias_semana)
+
+            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+            if(moment().format('YYYY-MM-DD')>miculto[0].abierto_hasta){
+                console.log('cerrar pagina')
+                res.render('sinfechaculto', {mensaje:'Bendiciones, el registro para el próximo culto ha finalizado.'})
+            }else{
+                res.render('registroweb', {
+                    alert:false, 
+                    mostrarform:false,
+                    dia_culto:dia_culto,
+                    dias_semana:dias_semana,
+                    mi_dia:mi_dia
+                    
+                })
+            }
+        }else{
+
+           res.render('sinfechaculto', {mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+        }
+    })        
+
 })
 
 router.get('/', (req, res) => {
@@ -176,8 +211,13 @@ router.post('/registeruser', authController.registeruser)
 router.post('/login', authController.login)
 router.post('/saveusuario', userController.saveusuario)
 router.post('/savemiembro', userController.savemiembro)
+router.post('/savemiembroregistro', userController.savemiembroregistro)
 router.post('/saveregistroasistencia', userController.saveregistroasistencia)
 router.post('/asignarseguimiento', userController.asignarseguimiento)
+
+router.post('/searchcedula', userController.searchcedula)
+router.post('/confirmarregistroweb', userController.confirmarregistroweb)
+
 //Editar (POST)
 router.post('/editarusuario', userController.editarusuario)
 router.post('/editarmiembro', userController.editarmiembro)

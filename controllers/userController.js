@@ -5,6 +5,104 @@ const {promisify}= require('util')
 const moment = require('moment')
 
 
+exports.searchcedula =  (req, res) =>{
+    try {
+        const cedula= req.body.cedula
+       
+        let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+
+       // let passHash =  bcryptjs.hash(cedula, 10)
+
+        console.log(cedula)
+        //conexion.getConnection(function(err, connection) {
+
+
+            conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[cedula], (error, results) =>{
+                if(results[0]){
+
+                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                        if(miculto[0]){
+                            console.log('Cedula registrada')
+
+                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                            res.render('registroweb', {
+                                results:results
+                                ,miculto:miculto
+                                ,mostrarform:true
+                               ,dias_semana:dias_semana,
+                                mi_dia:mi_dia
+                            })
+                        }else{
+
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                        }
+                    })        
+
+                    
+                    //res.send(results)   
+                    /*conexion.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, misfilas) {
+                        if(error){
+                            throw error
+                        }else{
+                             //console.log(rows)   
+                             res.render('usuarios',{alert:true, user_type:req.session.user_type, user_name:req.session.user_name, rows:misfilas, alertMessage:"Este Email ya fue registrado",
+                             mostrarDatos:true,
+                             menuactivo:'usuario',
+                             alert_miembro:false,   
+                             username:user_name,
+                             user_lastname:user_lastname,
+                             user_email:user_email,
+                             user_pwd:user_pwd,
+                             user_type:user_type
+                            
+                            })
+                             
+                        }
+                       
+                    });*/
+
+
+
+                    
+                } else {
+                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                        if(miculto[0]){
+
+                            dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                            mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                             res.render('registrowebnuevo', {
+                                miculto:miculto
+                                ,alert_miembro:false
+                                ,mostrarDatos:false
+                                ,dias_semana:dias_semana,
+                                mi_dia:mi_dia
+                             })
+                        }else{
+
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                        }
+                    })        
+    
+                }
+            });   
+
+            
+        //})
+
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
 
 //procedure to save
 exports.saveusuario = async (req, res) =>{
@@ -380,3 +478,112 @@ module.exports.asignarseguimiento = (req, res) =>{
         console.error(error)
     }
 }//FIN ASIGNAR SEGUIMIENTO
+
+
+module.exports.confirmarregistroweb = (req,res)=>{
+    const id = req.body.miembro_id
+    const fecha_culto = req.body.fecha_culto
+   
+    //let passHash = await bcryptjs.hash(user_pwd, 10)
+
+    console.log(id+' '+fecha_culto)
+
+    conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [{ miembro_asistencia_culto:fecha_culto}, id ], (error, results) => {
+        if(error) {
+            console.error(error)
+        } else {
+            res.redirect('registroweb');
+        }
+    })
+    
+}
+
+exports.savemiembroregistro = async (req, res) =>{
+    try {
+        const miembro_nombres= req.body.miembro_nombres
+        const miembro_apellidos= req.body.miembro_apellidos
+        const miembro_sexo= req.body.miembro_sexo
+        const miembro_telefono= req.body.miembro_telefono
+        const miembro_nacimiento= req.body.miembro_nacimiento
+        const miembro_cedula= req.body.miembro_cedula
+        const miembro_asistencia_culto= req.body.fecha_culto
+
+        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+     
+        let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+        
+        let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+        console.log(miembro_sexo)
+       
+
+            
+            conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[miembro_cedula], (error, results) =>{
+                if(results[0]){
+
+
+                    console.log('Cedula existe')
+
+                    conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
+                        if(error){
+                            throw error
+                        }else{
+                             //console.log(rows)   
+
+                             dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
+
+                             mi_dia=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('d')
+
+                             res.render('registrowebnuevo',{alert:false,alert_miembro:true, 
+                            miculto:miculto, alertMessage:"Esta Cédula ya fue registrada",
+                             mostrarDatos:true,
+                             nombre:miembro_nombres,
+                             apellido:miembro_apellidos,
+                             cedula:miembro_cedula,
+                             telefono:miembro_telefono,
+                             sexo:miembro_sexo,
+                             nacimiento:miembro_nacimiento,
+                             dias_semana:dias_semana,
+                             mi_dia:mi_dia
+                                                        
+                            
+                            })
+                             
+                        }
+                       
+                    });
+
+
+
+                    
+                } else {
+                       //res.send('ahora inserto') 
+                    // Usa la conexión
+                    conexion.query( 'INSERT INTO miembros set ?', {miembro_nombres:miembro_nombres, miembro_apellidos:miembro_apellidos,miembro_telefono:miembro_telefono, 
+                    miembro_cedula:miembro_cedula,
+                    miembro_nacimiento:nacimientoformat,
+                    miembro_sexo:miembro_sexo,
+                    miembro_asistencia_culto:miembro_asistencia_culto,
+
+                    }, (error, results) =>{
+
+                        if(error){
+                            throw error
+                        }else{
+                            res.redirect('registroweb')
+                            
+                        }
+
+                    })
+                   
+    
+                }
+            });
+            
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}//FIN SAVE MIEMBRO
