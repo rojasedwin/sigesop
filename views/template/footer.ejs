@@ -163,7 +163,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                 </div>
-                <input type="text" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
+                <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
               </div>
 
             </div>
@@ -289,7 +289,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                   </div>
-                  <input type="text" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
+                  <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
                 </div>
   
               </div>
