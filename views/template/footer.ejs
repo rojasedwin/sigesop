@@ -163,7 +163,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                 </div>
-                <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
+                <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control is_number" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
               </div>
 
             </div>
@@ -289,7 +289,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                   </div>
-                  <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
+                  <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" class="form-control is_number" name="miembro_cedula" id="miembro_cedula" value=<%= mostrarDatos==true ? cedula:'' %>>
                 </div>
   
               </div>
@@ -1259,6 +1259,19 @@ else
 $('#miembro_cedula').val('')
 
 })
+
+
+$('body').on('keyup','.is_number',function(){
+ 				if($(this).val().indexOf('.')!=-1)
+				{
+						$(this).val($(this).val().replace(".",""));
+				}
+
+        if($(this).val().indexOf('-')!=-1)
+				{
+						$(this).val($(this).val().replace("-",""));
+				}
+		});
 
  
 </script>

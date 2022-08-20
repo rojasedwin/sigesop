@@ -152,7 +152,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Cédula</label>
-                      <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" autofocus name="cedula" class="form-control" id="exampleInputEmail1" placeholder="Cédula">
+                      <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" ondrop="return false;" onpaste="return false;" autofocus name="cedula" class="form-control is_number" id="exampleInputEmail1" placeholder="Cédula">
                     </div>
                     
                     
@@ -354,6 +354,20 @@ $('#form_registroweb').validate({
       $(element).removeClass('is-invalid');
     }
   });
+
+
+  $('body').on('keyup','.is_number',function(){
+ 				if($(this).val().indexOf('.')!=-1)
+				{
+						$(this).val($(this).val().replace(".",""));
+				}
+
+        if($(this).val().indexOf('-')!=-1)
+				{
+						$(this).val($(this).val().replace("-",""));
+				}
+		});
+
 </script>
       
   </body>
