@@ -38,6 +38,9 @@
                         <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
                          <br><span class="badge badge-warning"><%= item.miembro_cedula %></span>   
                          <br><span class="badge badge-primary"><%= item.fecha_nac %></span>   
+                         <% if(item.miembro_verificado==1) { %>
+                         <br><span class="badge badge-danger">Verificado</span>  
+                         <% } %>
                         <input type="hidden" id='name_html_<%= item.miembro_id %>' value='<%= item.miembro_nombres %>' >
                       <input type="hidden" id='apellido_html_<%= item.miembro_id %>' value='<%= item.miembro_apellidos %>' >
                       <input type="hidden" id='id_html_<%= item.miembro_id %>' value='<%= item.miembro_id %>' >
@@ -66,6 +69,7 @@
                         <!--<button onclick="deleteMiembro(<%= item.miembro_id %>)" type="button" class="btn btn-sm btn-outline-success btn-block"><i class="fa fa-check-circle"></i></button>-->
                          <% if(item.ca_id>0) { %> 
                         <span class="badge badge-success">Registrado</span>
+                        <br><span class="badge badge-info"><%= item.ca_horario %></span>
                         <% }else{ %>
                           <button onclick="modalMiembroRegistro(<%= item.miembro_id %>)" data-id='<%=item.miembro_id %>' type="button" class="btn btn-sm btn-outline-primary btn-block btnEditarMiembro"><i class="fa fa-check-square"></i></button>
                           <% } %>    

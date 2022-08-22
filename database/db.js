@@ -32,5 +32,8 @@ const pool  = mysql.createPool({
  
   });*/
 
+  //ACtualizar miembros a verificado los datos
+  //update miembros set miembro_verificado=1 where miembro_id in(SELECT miembro_id FROM `cultos_asistencia` where date(ca_fecha_culto)='2022-08-21');
+
 
 module.exports = pool

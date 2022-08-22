@@ -168,7 +168,8 @@ exports.savemiembro = async (req, res) =>{
                     miembro_sexo:miembro_sexo,
                     miembro_nos_conocio:miembro_nos_conocio,
                     miembro_observaciones:miembro_observaciones,
-                    miembro_horario:miembro_horario
+                    miembro_horario:miembro_horario,
+                    miembro_verificado:1
                     }, (error, results) =>{
 
                         if(error){
@@ -227,7 +228,8 @@ exports.saveregistroasistencia = async (req, res) =>{
                 miembro_nacimiento:nacimientoformat,
                 miembro_sexo:miembro_sexo,
                 miembro_nos_conocio:miembro_nos_conocio,
-                miembro_primera_vez:primera_vez
+                miembro_primera_vez:primera_vez,
+                miembro_verificado:1
                
             }, miembro_id ], (error, results) => {
                 if(error) {
@@ -336,6 +338,7 @@ module.exports.editarmiembro = async (req,res)=>{
         miembro_nacimiento:nacimientoformat,
         miembro_sexo:miembro_sexo,
         miembro_nos_conocio:miembro_nos_conocio,
+        miembro_verificado:1
         
     }, id ], (error, results) => {
         if(error) {
