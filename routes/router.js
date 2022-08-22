@@ -87,7 +87,7 @@ router.get('/registroweb', (req, res) => {
 
             if(moment().format('YYYY-MM-DD')>miculto[0].abierto_hasta){
                 console.log('cerrar pagina')
-                res.render('sinfechaculto', {mensaje:'Bendiciones, el registro para el próximo culto ha finalizado.'})
+                res.render('sinfechaculto', {mensaje:'Bendiciones, en breve activaremos el registro.'})
             }else{
                 res.render('registroweb', {
                     alert:false, 
@@ -101,7 +101,7 @@ router.get('/registroweb', (req, res) => {
             }
         }else{
 
-           res.render('sinfechaculto', {mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+           res.render('sinfechaculto', {mensaje:'Bendiciones, en breve activaremos el registro.'})
         }
     })        
 

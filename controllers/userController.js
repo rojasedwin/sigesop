@@ -464,7 +464,7 @@ exports.searchcedula =  (req, res) =>{
                             })
                         }else{
 
-                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breve activaremos el registro.'})
                         }
                     })        
 
@@ -490,7 +490,7 @@ exports.searchcedula =  (req, res) =>{
                              })
                         }else{
 
-                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breves minutos activaremos el registro.'})
+                           res.render('sinfechaculto',{mensaje:'Bendiciones, en breve activaremos el registro.'})
                         }
                     })        
     
