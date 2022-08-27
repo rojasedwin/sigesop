@@ -129,10 +129,7 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Registro para nuestro servicio del día <%= dias_semana[mi_dia] %> <%= dia_culto %></h1>
         <p class="lead text-muted">De parte de los Apóstoles Hugo y Mariela te damos la más cordial bienvenida a tu casa. ¡Somos CCLR tu familia! Dios te bendiga</p>
-        <!--<p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>-->
+        
       </div>
     </div>
   </section>
@@ -169,6 +166,12 @@
         <% } %>
 
           <% if(mostrarform) { %>
+            <% if(mostrarform) { %>  
+              <p>
+                <p class="text-muted">Hola <%= results[0].miembro_nombres %>, gracias por registrarte. ¡Bienvenido!</p>
+              </p>
+              <% } %>
+
             <form name="form_registroweb" id="form_registroweb" action="/confirmarregistroweb" method="post">
                 
 

@@ -28,21 +28,31 @@ router.get('/home',authController.isAuthenticated, (req, res) =>{
                     if(error){
                         throw error
                     }else{
-                        console.log(resultados)
+                        //CUMPLEAÑOS DEL MES    
+                        let sql=connection.query('SELECT m.*,YEAR(CURDATE())-YEAR(m.miembro_nacimiento)  AS edad_actual FROM miembros m WHERE EXTRACT( MONTH from m.miembro_nacimiento)=MONTH(NOW())', function(error, results) {
+                    
+                            if(error){
+                                throw error
+                            }else{
+                                //console.log(resultados)
+                                //console.log(cumplemes)
+
+                                res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:rows, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home',
+                                titulo_pagina:'Dashboard'
+                                ,cumpleanios:resultados
+  
+                                
+                                })//FIN RENDERIZADO
 
 
-                        connection.query('SELECT * FROM seguimientos s INNER JOIN miembros m ON s.miembro_id=m.miembro_id LEFT OUTER JOIN ministros mi ON mi.ministro_id=s.seguimiento_assigned_to ORDER BY mi.ministro_id Asc', function(error, results) {
-                            console.log(req.session.user_id)
-                            //console.log(results)
-                            res.render('home', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, seguimiento:results, mostrarDatos:false, alert:false, alert_miembro:false,menuactivo:'home',
-                            titulo_pagina:'Dashboard'
-                            ,cumpleanios:resultados
-                            
+
+                            }
+
                         })
-        
-                        console.log('BD CONECTADA')
-        
-                        }) 
+                        
+
+
+                        
         
                     
                     
@@ -79,7 +89,7 @@ router.get('/registroweb', (req, res) => {
 
     conexion.query( 'SELECT culto_id, date_format(abierto_hasta,"%Y-%m-%d") as abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
         if(miculto[0]){
-            console.log(dias_semana)
+            //console.log(dias_semana)
 
             dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
 
@@ -139,8 +149,27 @@ router.get('/cumpleanios',authController.isAuthenticated, (req, res) =>{
             if(error){
                 throw error
             }else{
-                 console.log(rows)   
-                res.render('cumpleanios', {cumpleanios:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'home', titulo_pagina:'Cumpleaños'})
+
+                //CUMPLEAÑOS DEL MES    
+                let sql=conexion.query('SELECT m.*,YEAR(CURDATE())-YEAR(m.miembro_nacimiento)  AS edad_actual, date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac, date_format(m.miembro_nacimiento,"%Y-%m-%d") as nac FROM miembros m WHERE EXTRACT( MONTH from m.miembro_nacimiento)=MONTH(NOW()) ORDER BY fecha_nac Asc', function(error, cumplemes) {
+                    
+                    if(error){
+                        throw error
+                    }else{
+                       
+                        console.log('DIA ACTUAL ES: '+moment().format('DD-MM-YYYY'))   
+                        
+                        res.render('cumpleanios', {cumpleanios:rows, cumplemes:cumplemes, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'home', titulo_pagina:'Cumpleaños'
+                        ,dia_actual:moment().format('DD-MM-YYYY')
+                    })//FIN RENDERIZADO
+
+                    }//fin de errores
+
+                })//fin query sql
+
+
+                 //console.log(rows)   
+                
                  
             }
             //connection.release();
@@ -239,7 +268,7 @@ router.get('/asistenciaregistroweb',authController.isAuthenticated, (req, res) =
                 if(error){
                     throw error
                 }else{
-                     console.log(results)   
+                     //console.log(results)   
                     //res.send(rows)
                     res.render('asistenciaregistroweb', {rows:results, 
                        
