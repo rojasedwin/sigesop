@@ -64,7 +64,7 @@
               </li>
             </ul>
           </li> -->
-
+          <% if(user_type==1) { %> 
           <li class="nav-item"> <!-- DASHBOARD -->
             <a href="/home" class='nav-link <%= menuactivo=="home" ? "active":"" %>'>
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -74,8 +74,11 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">ADMINISTRACION</li>
+          <% } %>
+
           <% if(user_type==1) { %>
+          <li class="nav-header">ADMINISTRACION</li>
+         
           <li class="nav-item">
             <a href="/usuarios" class='nav-link <%= menuactivo=="usuario" ? "active":"" %>'>
               <i class="nav-icon fas fa-users"></i>
@@ -108,7 +111,7 @@
 
           <% } %>
 
-          <% if(user_type!=3) { %>
+          <% if(user_type==1) { %>
             <li class="nav-item">
               <a href="/miembros" class='nav-link <%= menuactivo=="miembros" ? "active":"" %>'>
                 <i class="nav-icon fas fa-users"></i>
@@ -119,7 +122,8 @@
               </a>
             </li>
             <% } %>
-
+           
+            <% if(user_type==1) { %>
             <li class="nav-header">CULTOS</li>
           <li class="nav-item">
             <a href="/registroasistencia" class='nav-link <%= menuactivo=="registroasistencia" ? "active":"" %> ' >
@@ -129,6 +133,19 @@
               </p>
             </a>
           </li>
+          <% } %>
+
+          <% if(user_type==1 || user_type==5) { %>
+            <li class="nav-header">EVENTOS</li>
+          <li class="nav-item">
+            <a href="/eventompj" class='nav-link <%= menuactivo=="eventompj" ? "active":"" %> ' >
+              <i class="nav-icon fa fa-tasks"></i>
+                Evento MPJ
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <% } %>
 
           <li class="nav-header">SALIDA DEL SISTEMA</li>
           <li class="nav-item">

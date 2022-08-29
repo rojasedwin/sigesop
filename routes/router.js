@@ -306,6 +306,26 @@ router.get('/registrompj', (req, res) => {
 
 })
 
+//GET EVENTOS MPJ
+router.get('/eventompj',authController.isAuthenticated, (req, res) =>{
+    
+    //conexion.getConnection(function(err, connection) {
+
+        conexion.query( 'SELECT * FROM eventos', function(error, rows) {
+            if(error){
+                throw error
+            }else{
+                 //console.log(rows)   
+                res.render('eventompj', {rows:rows, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'eventompj', titulo_pagina:'Registro Coordinadores'})
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})//fin usuarios GET
+
 
 
 

@@ -1,0 +1,76 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Registro Coordinadores</h3>
+                  
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <table id="tablaeventompj" class="table table-bordered table-hover ">
+                    <thead>
+                    <tr>
+                     
+                      <th>Nombre y Apellido</th>
+                      <th class="">Cédula</th>
+                      <th>Teléfono</th>
+                      <th>Email</th>
+                      <th>Cargo</th>
+                      <th>Estado</th>
+                      <th>Municipio o Parroquia</th>
+                      <th>Ministerio</th>
+                      <th>Cobertura</th>
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rows.forEach ((item) =>{ %>      
+                    <tr>
+                      <td><%= item.evento_nombre %> <%= item.evento_apellido %></td>
+
+                      <td><%= item.evento_cedula %></td>
+                     
+                      <td><%= item.evento_telefono %></td>
+                      <td><%= item.evento_correo %></td>
+                      <td><%= item.evento_cargo %></td>
+                      <td><%= item.evento_estado %></td>
+                      <td><%= item.evento_coordinador_zona %></td>
+                      <td><%= item.evento_ministerio_nombre %></td>
+                      <td><%= item.evento_cobertura %></td>
+                     
+                    </tr>
+                    <% }) %>
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

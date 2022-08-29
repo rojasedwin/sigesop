@@ -4,6 +4,7 @@
 <%- include("template/content-header") %>
 
     <!-- Main content -->
+    <% if(user_type==1) { %>
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
@@ -186,6 +187,6 @@
         </div>
 
     </section>
-
+    <% } %>
     <%- include("template/footer") %>
   
