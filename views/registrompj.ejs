@@ -170,7 +170,7 @@
                             <!-- text input -->
                             <div class="form-group">
                               <label>Cédula</label>
-                              <input type="text" name="evento_cedula" class="form-control" placeholder="Ingrese Cédula" value="<%= mostrarDatosMpj==true ? cedula:'' %>">
+                              <input type="number" onkeypress="return event.charCode>=48 && event.charCode<=57" ondrop="return false;" onpaste="return false;" autofocus  name="evento_cedula" class="form-control" placeholder="Ingrese Cédula" value="<%= mostrarDatosMpj==true ? cedula:'' %>">
                             </div>
                           </div>
                           <div class="col-sm-6">
