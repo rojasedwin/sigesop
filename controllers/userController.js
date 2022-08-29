@@ -667,3 +667,103 @@ exports.saveservicio = async (req, res) =>{
         console.error(error)
     }
 }//FIN SAVE SERVICIO
+
+
+//SAVE EVENTO MPJ
+exports.saveeventompj = async (req, res) =>{
+    try {
+        const evento_nombre= req.body.evento_nombre
+        const evento_apellido= req.body.evento_apellido
+        const evento_email= req.body.evento_email
+        const evento_cedula= req.body.evento_cedula
+        const evento_telefono= req.body.evento_telefono
+        const evento_cargo= req.body.evento_cargo
+        const evento_estado= req.body.evento_estado
+        const evento_coordinador_zona= req.body.evento_coordinador_zona
+        const evento_ministerio_nombre= req.body.evento_ministerio_nombre
+        const evento_cobertura= req.body.evento_cobertura
+       
+
+        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+     
+       // let dias_semana = ["Domingo", "Lunes", "martes", "Miércoles", "Jueves", "Viernes", "Sábado"] ; 
+        
+        //let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+
+        console.log(evento_cedula)
+       
+
+            
+            conexion.query( 'SELECT * FROM eventos where evento_cedula=?',[evento_cedula], (error, results) =>{
+                if(results[0]){
+
+
+                    console.log('Cedula existe')
+
+                    res.render('registrompj',{ 
+                        alertMessage:"Esta Cédula ya fue registrada",
+                         mostrarDatosMpj:true,
+                         nombre:evento_nombre,
+                         apellido:evento_apellido,
+                         cedula:evento_cedula,
+                         email:evento_email,
+                         telefono:evento_telefono,
+                         cargo:evento_cargo,
+                         estado:evento_estado,
+                         zona:evento_coordinador_zona,
+                         ministerio:evento_ministerio_nombre,
+                         cobertura:evento_cobertura,
+                         alert_error_cedula:true,
+                         alert_registro:false,
+                        
+                                                    
+                        
+                        })
+                    
+                } else {
+                       //res.send('ahora inserto') 
+                    // Usa la conexión
+                    conexion.query( 'INSERT INTO eventos set ?', {evento_nombre:evento_nombre, 
+                        evento_apellido:evento_apellido, 
+                        evento_cedula:evento_cedula, 
+                        evento_correo:evento_email, 
+                        evento_telefono:evento_telefono, 
+                        evento_cargo:evento_cargo, 
+                        evento_estado:evento_estado, 
+                        evento_coordinador_zona:evento_coordinador_zona, 
+                        evento_ministerio_nombre:evento_ministerio_nombre, 
+                        evento_cobertura:evento_cobertura,
+
+                    }, (error, results) =>{
+
+                        if(error){
+                            throw error
+                        }else{
+
+                            res.render('registrompj', {
+                                alert:false, 
+                                 alert_registro:true,
+                                 alert_error_cedula:false,
+                                 mostrarDatosMpj:false
+                                
+                                
+                            })
+                           
+
+                            
+                            
+                        }
+
+                    })
+                   
+    
+                }
+            });
+            
+
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+}//FIN SAVE EVENTO MPJ

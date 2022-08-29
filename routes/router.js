@@ -291,6 +291,21 @@ router.get('/asistenciaregistroweb',authController.isAuthenticated, (req, res) =
   
 })//ASISTENCIA REGISTRO WEB
 
+//REGISTRO EVENTOS MPJ
+router.get('/registrompj', (req, res) => {
+    
+
+    res.render('registrompj', {
+        alert:false, 
+         alert_registro:false,
+         alert_error_cedula:false,
+         mostrarDatosMpj:false
+        
+        
+    })
+
+})
+
 
 
 
@@ -301,6 +316,7 @@ router.post('/saveusuario', userController.saveusuario)
 router.post('/savemiembro', userController.savemiembro)
 router.post('/saveservicio', userController.saveservicio)
 router.post('/savemiembroregistro', userController.savemiembroregistro)
+router.post('/saveeventompj', userController.saveeventompj)
 router.post('/saveregistroasistencia', userController.saveregistroasistencia)
 router.post('/asignarseguimiento', userController.asignarseguimiento)
 
