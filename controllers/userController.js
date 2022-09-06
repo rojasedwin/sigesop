@@ -692,73 +692,38 @@ exports.saveeventompj = async (req, res) =>{
 
         console.log(evento_cedula)
        
+        conexion.query( 'INSERT INTO eventos set ?', {evento_nombre:evento_nombre, 
+            evento_apellido:evento_apellido, 
+            evento_cedula:evento_cedula, 
+            evento_correo:evento_email, 
+            evento_telefono:evento_telefono, 
+            evento_cargo:evento_cargo, 
+            evento_estado:evento_estado, 
+            evento_coordinador_zona:evento_coordinador_zona, 
+            evento_ministerio_nombre:evento_ministerio_nombre, 
+            evento_cobertura:evento_cobertura,
 
-            
-            conexion.query( 'SELECT * FROM eventos where evento_cedula=?',[evento_cedula], (error, results) =>{
-                if(results[0]){
+        }, (error, results) =>{
 
+            if(error){
+                throw error
+            }else{
 
-                    console.log('Cedula existe')
-
-                    res.render('registrompj',{ 
-                        alertMessage:"Esta Cédula ya fue registrada",
-                         mostrarDatosMpj:true,
-                         nombre:evento_nombre,
-                         apellido:evento_apellido,
-                         cedula:evento_cedula,
-                         email:evento_email,
-                         telefono:evento_telefono,
-                         cargo:evento_cargo,
-                         estado:evento_estado,
-                         zona:evento_coordinador_zona,
-                         ministerio:evento_ministerio_nombre,
-                         cobertura:evento_cobertura,
-                         alert_error_cedula:true,
-                         alert_registro:false,
-                        
-                                                    
-                        
-                        })
+                res.render('registrompj', {
+                    alert:false, 
+                     alert_registro:true,
+                     alert_error_cedula:false,
+                     mostrarDatosMpj:false
                     
-                } else {
-                       //res.send('ahora inserto') 
-                    // Usa la conexión
-                    conexion.query( 'INSERT INTO eventos set ?', {evento_nombre:evento_nombre, 
-                        evento_apellido:evento_apellido, 
-                        evento_cedula:evento_cedula, 
-                        evento_correo:evento_email, 
-                        evento_telefono:evento_telefono, 
-                        evento_cargo:evento_cargo, 
-                        evento_estado:evento_estado, 
-                        evento_coordinador_zona:evento_coordinador_zona, 
-                        evento_ministerio_nombre:evento_ministerio_nombre, 
-                        evento_cobertura:evento_cobertura,
+                    
+                })
+               
 
-                    }, (error, results) =>{
+                
+                
+            }
 
-                        if(error){
-                            throw error
-                        }else{
-
-                            res.render('registrompj', {
-                                alert:false, 
-                                 alert_registro:true,
-                                 alert_error_cedula:false,
-                                 mostrarDatosMpj:false
-                                
-                                
-                            })
-                           
-
-                            
-                            
-                        }
-
-                    })
-                   
-    
-                }
-            });
+        })
             
 
 
