@@ -1,0 +1,72 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/sidebar") %>
+<%- include("template/content-header") %>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Miembros</h3>
+                 
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive">
+                  <table id="tablamiembros" class="table table-bordered table-hover ">
+                    <thead>
+                    <tr>
+                     
+                      <th>Nombre y Apellido</th>
+                      <th>Fecha Asistencia</th>
+                      <th>Horario</th>
+                   
+                    
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rows.forEach ((item) =>{ %>      
+                    <tr>
+                      <td>
+                        <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
+                      </td>
+
+                      <td>
+                        <%= item.fecha_asistencia %>
+                      </td>
+
+                      <td>
+                        <%= item.ca_horario %>
+                      </td>
+                     
+                     
+                    </tr>
+                    <% }) %>
+                   
+                    </tbody>
+                    
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+ 
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    <!-- /.content -->
+   
+      
+
+    <%- include("template/footer") %>
+  

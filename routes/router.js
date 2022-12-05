@@ -326,6 +326,25 @@ router.get('/eventompj',authController.isAuthenticated, (req, res) =>{
     
 })//fin usuarios GET
 
+//GET HISTORIAL ASISTENCIA
+router.get('/historialmiembro/:id',authController.isAuthenticated, (req, res) =>{
+    const id= req.params.id
+        conexion.query( 'SELECT m.*, ca.*, date_format(ca.ca_fecha_culto,"%d-%m-%Y") as fecha_asistencia FROM miembros m INNER JOIN cultos_asistencia ca ON m.miembro_id=ca.miembro_id where m.miembro_id=? ORDER BY ca_fecha_culto Desc Limit 5',[id], (error, results) =>{
+       
+            if(error){
+                throw error
+            }else{
+                 console.log(results)   
+               res.render('historialmiembro', {rows:results, user_type:req.mi_user_type, user_name:req.mi_user_name, alert:false,alert_miembro:false,mostrarDatos:false, menuactivo:'asistenciamiembro', titulo_pagina:'Historial de Asistencia'})
+                 
+            }
+            //connection.release();
+            // No use la conexión aquí, se ha devuelto al grupo.
+        });
+   // })
+    
+})//fin HISTORIAL ASISTENCIA
+
 
 
 

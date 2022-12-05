@@ -59,6 +59,9 @@
                         <button onclick="modalMiembro(<%= item.miembro_id %>)" data-id='<%=item.miembro_id %>' type="button" class="btn btn-sm btn-outline-primary btn-block btnEditarMiembro"><i class="fa fa-edit"></i></button>
 
                         <button onclick="deleteMiembro(<%= item.miembro_id %>)" type="button" class="btn btn-sm btn-outline-danger btn-block"><i class="fa fa-trash"></i></button>
+
+                        <a href="/historialmiembro/<%= item.miembro_id %>" class="btn btn-sm btn-outline-info btn-block"><i class="fa fa-info"></i></a>
+
                       </td>
                     </tr>
                     <% }) %>
