@@ -8,12 +8,20 @@ const mysql = require('mysql')
 })*/
 
 const pool  = mysql.createPool({
-//const conexion  = mysql.createConnection({
+
     host:'b2ng7rktqi1ms5p0ja5a-mysql.services.clever-cloud.com',
     user:'ulg9zevivcttjr7d',
     password:'2NYywA8r4L2RxeleMrBP',
     database:'b2ng7rktqi1ms5p0ja5a',
 })
+
+/*const pool  = mysql.createPool({
+        host:'containers-us-west-74.railway.app',
+        user:'root',
+        password:'DIX3B1zsVBfzbNP8SeUA',
+        database:'railway',
+    
+    })*/
 
 /*const pool  = mysql.createPool({
     //const conexion  = mysql.createConnection({
