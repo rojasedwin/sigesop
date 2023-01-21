@@ -1,11 +1,18 @@
 const mysql = require('mysql')
 
-const pool  = mysql.createPool({
-//const conexion  = mysql.createConnection({
+/*const pool  = mysql.createPool({
     host:'us-cdbr-east-05.cleardb.net',
     user:'bf7ce2d52f141a',
     password:'4a1944fd',
     database:'heroku_a1f7b4e8dda28ba',
+})*/
+
+const pool  = mysql.createPool({
+//const conexion  = mysql.createConnection({
+    host:'b2ng7rktqi1ms5p0ja5a-mysql.services.clever-cloud.com',
+    user:'ulg9zevivcttjr7d',
+    password:'2NYywA8r4L2RxeleMrBP',
+    database:'b2ng7rktqi1ms5p0ja5a',
 })
 
 /*const pool  = mysql.createPool({
