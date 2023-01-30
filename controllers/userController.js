@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs')
 const conexion = require('../database/db')
 const {promisify}= require('util')
 const moment = require('moment')
+const { exit } = require('process')
 
 
 
@@ -115,9 +116,10 @@ exports.savemiembro = async (req, res) =>{
         const miembro_cedula= req.body.miembro_cedula
         const miembro_observaciones= req.body.miembro_observaciones
         const miembro_horario= req.body.miembro_horario
+        const miembro_add_by=1
+       
 
-        //let passHash = await bcryptjs.hash(miembro_cedula, 10)
-     
+          
         
         
         let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
@@ -126,7 +128,7 @@ exports.savemiembro = async (req, res) =>{
        
 
             
-            conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[miembro_cedula], (error, results) =>{
+           conexion.query( 'SELECT * FROM miembros where miembro_cedula=?',[miembro_cedula], (error, results) =>{
                 if(results[0]){
 
 
@@ -139,7 +141,8 @@ exports.savemiembro = async (req, res) =>{
                              //console.log(rows)   
                              res.render('miembros',{alert:false,alert_miembro:true, user_type:req.session.user_type, user_name:req.session.user_name, rows:misfilas, alertMessage:"Esta Cédula ya fue registrada",
                              mostrarDatos:true,
-                             menuactivo:'miembros',                            nombre:miembro_nombres,
+                             menuactivo:'miembros',                           
+                             nombre:miembro_nombres,
                              apellido:miembro_apellidos,
                              cedula:miembro_cedula,
                              telefono:miembro_telefono,
@@ -169,7 +172,8 @@ exports.savemiembro = async (req, res) =>{
                     miembro_nos_conocio:miembro_nos_conocio,
                     miembro_observaciones:miembro_observaciones,
                     miembro_horario:miembro_horario,
-                    miembro_verificado:1
+                    miembro_verificado:1,
+                    miembro_add_by:miembro_add_by
                     }, (error, results) =>{
 
                         if(error){
@@ -183,7 +187,7 @@ exports.savemiembro = async (req, res) =>{
                    
     
                 }
-            });
+            });//fin conexion
             
 
 
@@ -218,7 +222,7 @@ exports.saveregistroasistencia = async (req, res) =>{
 
         let primera_vez = typeof miembro_primera_vez !== 'undefined' ? miembro_primera_vez : '0'
 
-        console.log(user_id)
+        console.log('user_id-->'+user_id)
         if(miembro_id>0){
             let Sql=conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
                 {  
@@ -239,7 +243,7 @@ exports.saveregistroasistencia = async (req, res) =>{
                     //REGISTRO EN TABLA ASISTENCIA CULTO
                     let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
                         miembro_id:miembro_id, 
-                        ca_add_by:user_id,
+                       // ca_add_by:1,
                         ca_primera_vez:primera_vez==0?0:1,
                         ca_horario:ca_horario,
                         ca_observaciones:ca_observaciones
@@ -280,7 +284,7 @@ exports.saveregistroasistencia = async (req, res) =>{
                        
                         let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
                             miembro_id:ultimo_id, 
-                            ca_add_by:user_id,
+                            //ca_add_by:user_id,
                             ca_primera_vez:primera_vez==0?0:1
                             }, (error, results) =>{
     

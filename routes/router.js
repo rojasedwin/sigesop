@@ -182,7 +182,7 @@ router.get('/cumpleanios',authController.isAuthenticated, (req, res) =>{
 router.get('/miembros',authController.isAuthenticated, (req, res) =>{
     
     //conexion.getConnection(function(err, connection) {
-
+ 
         conexion.query( 'SELECT m.*,date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac FROM miembros m', function(error, rows) {
             if(error){
                 throw error
