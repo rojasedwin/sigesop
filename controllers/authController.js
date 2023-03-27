@@ -136,7 +136,8 @@ exports.isAuthenticated = async (req, res, next)=>{
                     req.mi_user_type = results[0].user_type
                     req.mi_user_name = results[0].user_name
                     req.mi_user_id = results[0].user_id
-                    console.log('este dato es: '+req.mi_user_id)
+                    console.log('EL user id actual: '+req.mi_user_id)
+                    console.log('EL user type actual: '+req.mi_user_type)
                     //res.send(req.mi_user_type)
                     return next()
                 })

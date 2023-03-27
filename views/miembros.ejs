@@ -13,7 +13,10 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Miembros</h3>
+                  <h3 class="card-title">Miembros
+
+                     <input type="hidden" id='user_id_logueado' value='<%= user_id %>' >
+                  </h3>
                   <button  id="btnMiembro" style="float:right" type="button" class="btn btn-primary btn-sm btnNewMiembro" data-toggle="modal" data-target="#modal-miembros">
                     Nuevo
                     <i class="fa fa-user-plus"></i></button>

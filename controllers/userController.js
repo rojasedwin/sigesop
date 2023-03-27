@@ -116,7 +116,7 @@ exports.savemiembro = async (req, res) =>{
         const miembro_cedula= req.body.miembro_cedula
         const miembro_observaciones= req.body.miembro_observaciones
         const miembro_horario= req.body.miembro_horario
-        const miembro_add_by=1
+        const miembro_add_by=req.body.user_id_actual
        
 
           
@@ -151,6 +151,7 @@ exports.savemiembro = async (req, res) =>{
                              nos_conocio:miembro_nos_conocio,
                              observaciones:miembro_observaciones,
                              horario:miembro_horario,
+                            miembro_add_by:miembro_add_by,
                             
                             
                             })
@@ -213,6 +214,7 @@ exports.saveregistroasistencia = async (req, res) =>{
         const user_id= req.body.add_by
         const ca_horario= req.body.miembro_horario
         const ca_observaciones= req.body.miembro_observaciones
+        const ca_add_by= req.body.user_id_actual
 
         //let passHash = await bcryptjs.hash(miembro_cedula, 10)
      
@@ -246,13 +248,14 @@ exports.saveregistroasistencia = async (req, res) =>{
                        // ca_add_by:1,
                         ca_primera_vez:primera_vez==0?0:1,
                         ca_horario:ca_horario,
-                        ca_observaciones:ca_observaciones
+                        ca_observaciones:ca_observaciones,
+                        ca_add_by:ca_add_by
                         }, (error, results) =>{
 
                             if(error){
                                 throw error
                             }else{
-                                //console.log(sql)
+                                console.log(sql)
                                 res.redirect('registroasistencia');
                                 
                             }
@@ -272,7 +275,8 @@ exports.saveregistroasistencia = async (req, res) =>{
                 miembro_cedula:miembro_cedula,
                 miembro_nacimiento:nacimientoformat,
                 miembro_sexo:miembro_sexo,
-                miembro_nos_conocio:miembro_nos_conocio
+                miembro_nos_conocio:miembro_nos_conocio,
+                miembro_add_by:ca_add_by
                 
                     }, (error, results) =>{
 
@@ -285,7 +289,10 @@ exports.saveregistroasistencia = async (req, res) =>{
                         let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
                             miembro_id:ultimo_id, 
                             //ca_add_by:user_id,
-                            ca_primera_vez:primera_vez==0?0:1
+                            ca_primera_vez:primera_vez==0?0:1,
+                            ca_horario:ca_horario,
+                        ca_observaciones:ca_observaciones,
+                        ca_add_by:ca_add_by
                             }, (error, results) =>{
     
                                 if(error){

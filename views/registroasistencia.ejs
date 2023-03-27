@@ -13,7 +13,9 @@
             <div class="col-12"  >
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Registro Asistencia</h3>
+                  <h3 class="card-title">Registro Asistencia 
+                    <input type="hidden" id='user_id_logueado' value='<%= user_id %>' >
+                  </h3>
                   <button  id="btnMiembro" style="float:right" type="button" class="btn btn-primary btn-sm btnNewMiembro" data-toggle="modal" data-target="#modal-miembros">
                     Nuevo
                     <i class="fa fa-user-plus"></i></button>
@@ -41,6 +43,7 @@
                          <% if(item.miembro_verificado==1) { %>
                          <br><span class="badge badge-danger">Verificado</span>  
                          <% } %>
+                       
                         <input type="hidden" id='name_html_<%= item.miembro_id %>' value='<%= item.miembro_nombres %>' >
                       <input type="hidden" id='apellido_html_<%= item.miembro_id %>' value='<%= item.miembro_apellidos %>' >
                       <input type="hidden" id='id_html_<%= item.miembro_id %>' value='<%= item.miembro_id %>' >

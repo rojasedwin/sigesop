@@ -193,8 +193,9 @@ router.get('/miembros',authController.isAuthenticated, (req, res) =>{
                    
                     alert_miembro:false,alert:false,mostrarDatos:false, menuactivo:'miembros'
                 ,user_name:req.mi_user_name
-                ,user_type:req.mi_user_type,
-                titulo_pagina:'Miembros'
+                ,user_type:req.mi_user_type
+                ,user_id:req.mi_user_id
+                ,titulo_pagina:'Miembros'
             })
                  
             }

@@ -88,6 +88,8 @@
                     <th>Nombre y Apellido</th>
                     <th>Telefono</th>
                     <th>Sexo</th>
+                    <th>Horario</th>
+                    <th>Observaciones</th>
                     <th>-</th>
                     
                   </tr>
@@ -113,6 +115,8 @@
                     <td><%= user.miembro_nombres %> <%= user.miembro_apellidos %></td>
                     <td><%= user.miembro_telefono %></td>
                     <td><%= ((user.miembro_sexo==0)?'M':'F') %></td>
+                    <td><%= user.ca_horario %></td>
+                    <td><%= user.ca_observaciones %></td>
                     <td>
                       <% if(user.seguimiento_id>0) { %>
                         <span class="badge badge-info">Asignado</span>
