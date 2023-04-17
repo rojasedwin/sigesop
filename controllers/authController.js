@@ -20,7 +20,7 @@ exports.registeruser = async (req, res) =>{
 
             conexion.query( 'SELECT * FROM users where user_email=?',[user_email], (error, results) =>{
                 if(results[0]){
-                    console.log('Email existe'+ results[0])
+                    //console.log('Email existe'+ results[0])
                     res.render('register',{alert:true})
                 } else {
 
@@ -116,7 +116,7 @@ exports.login = async (req, res)=>{
             })
         }
     } catch (error) {
-        console.log(error)
+       //console.log(error)
     }
 }
 
@@ -142,7 +142,7 @@ exports.isAuthenticated = async (req, res, next)=>{
                     return next()
                 })
             } catch (error) {
-                console.log(error)
+                //console.log(error)
                 return next()
             }
         }else{

@@ -19,7 +19,7 @@ exports.saveusuario = async (req, res) =>{
 
         let passHash = await bcryptjs.hash(user_pwd, 10)
 
-        console.log(user_email +" - "+user_name+" - "+passHash)
+        //console.log(user_email +" - "+user_name+" - "+passHash)
         //conexion.getConnection(function(err, connection) {
 
 
@@ -27,7 +27,7 @@ exports.saveusuario = async (req, res) =>{
                 if(results[0]){
 
 
-                    console.log('Email existe')
+                    //console.log('Email existe')
 
                     conexion.query( 'SELECT * FROM users u INNER JOIN tipo_usuario tu ON u.user_type=tu.user_type where user_id!=1964', function(error, misfilas) {
                         if(error){
@@ -92,7 +92,7 @@ module.exports.editarusuario = async (req,res)=>{
 
     let passHash = await bcryptjs.hash(user_pwd, 10)
 
-    console.log(user_email +" - "+user_name+" - "+passHash+" - "+id+" - "+user_lastname+" - "+user_type)
+    //console.log(user_email +" - "+user_name+" - "+passHash+" - "+id+" - "+user_lastname+" - "+user_type)
 
     conexion.query('UPDATE users SET ? WHERE user_id = ?', [{ user_name:user_name, user_email:user_email, user_lastname:user_lastname,  user_type:user_type}, id ], (error, results) => {
         if(error) {
@@ -124,7 +124,7 @@ exports.savemiembro = async (req, res) =>{
         
         let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
 
-        console.log(miembro_cedula)
+       //console.log(miembro_cedula)
        
 
             
@@ -132,7 +132,7 @@ exports.savemiembro = async (req, res) =>{
                 if(results[0]){
 
 
-                    console.log('Cedula existe')
+                    //console.log('Cedula existe')
 
                     conexion.query( 'SELECT * FROM miembros', function(error, misfilas) {
                         if(error){
@@ -217,14 +217,18 @@ exports.saveregistroasistencia = async (req, res) =>{
         const ca_add_by= req.body.user_id_actual
 
         //let passHash = await bcryptjs.hash(miembro_cedula, 10)
-     
-        
-        
+       
+        let nacimientoformat ="0000-00-00";
+
+        console.log('nacimiento-->'+nacimientoformat)
+        if(miembro_nacimiento!=""){
         let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+        }
 
         let primera_vez = typeof miembro_primera_vez !== 'undefined' ? miembro_primera_vez : '0'
+       
 
-        console.log('user_id-->'+user_id)
+       
         if(miembro_id>0){
             let Sql=conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
                 {  
@@ -255,7 +259,7 @@ exports.saveregistroasistencia = async (req, res) =>{
                             if(error){
                                 throw error
                             }else{
-                                console.log(sql)
+                               // console.log(sql)
                                 res.redirect('registroasistencia');
                                 
                             }
@@ -284,7 +288,8 @@ exports.saveregistroasistencia = async (req, res) =>{
                         throw error
                     }else{
                         let ultimo_id=results.insertId
-                        console.log('EL ID insertado es: '+ultimo_id)
+                        //console.log('EL ID insertado es: '+ultimo_id)
+                        console.log('ES NUEVO MIEMBRO: '+nacimientoformat)
                        
                         let sql=conexion.query( 'INSERT INTO cultos_asistencia set ?', {
                             miembro_id:ultimo_id, 
@@ -298,7 +303,7 @@ exports.saveregistroasistencia = async (req, res) =>{
                                 if(error){
                                     throw error
                                 }else{
-                                    console.log('EL ID insertado es: '+results.insertId)
+                                    //console.log('EL ID insertado es: '+results.insertId)
                                     res.redirect('registroasistencia');
                                     
                                 }
@@ -335,11 +340,14 @@ module.exports.editarmiembro = async (req,res)=>{
     const miembro_nos_conocio= req.body.miembro_nos_conocio
     const miembro_cedula= req.body.miembro_cedula
     
-
+    console.log('nacimiento form '+miembro_nacimiento)
     //let passHash = await bcryptjs.hash(miembro_cedula, 10)
-    let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+    let nacimientoformat="0000-00-00";
+    if(miembro_nacimiento!=""){
+        nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+    }
 
-    console.log(miembro_sexo)
+    console.log('nacimiento '+nacimientoformat)
 
     conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
         {  
@@ -366,7 +374,7 @@ module.exports.asignarseguimiento = (req, res) =>{
         const seguimiento_assigned_to= req.body.seguimiento_assigned_to
         const miembro_id= req.body.miembro_id
        
-        console.log('Asignado a: '+seguimiento_assigned_to+' el miembro ID: '+miembro_id)
+        //console.log('Asignado a: '+seguimiento_assigned_to+' el miembro ID: '+miembro_id)
 
         let sql=conexion.query( 'INSERT INTO seguimientos set ?', {
             miembro_id:miembro_id, 
@@ -376,8 +384,8 @@ module.exports.asignarseguimiento = (req, res) =>{
                 if(error){
                     throw error
                 }else{
-                    console.log(sql)
-                    console.log('EL ID insertado es: '+results.insertId)
+                    //console.log(sql)
+                    //console.log('EL ID insertado es: '+results.insertId)
                     res.redirect('home')
                     
                 }
@@ -403,7 +411,7 @@ module.exports.confirmarregistroweb = (req,res)=>{
    
     //let passHash = await bcryptjs.hash(user_pwd, 10)
 
-    console.log(id+' '+fecha_culto)
+    //console.log(id+' '+fecha_culto)
 
     conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [{ miembro_asistencia_culto:fecha_culto}, id ], (error, results) => {
         if(error) {
@@ -414,7 +422,7 @@ module.exports.confirmarregistroweb = (req,res)=>{
 
             conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
                 if(miculto[0]){
-                    console.log('Cedula registrada')
+                    //console.log('Cedula registrada')
 
                     dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
 
@@ -450,7 +458,7 @@ exports.searchcedula =  (req, res) =>{
 
        // let passHash =  bcryptjs.hash(cedula, 10)
 
-        console.log(cedula)
+        //console.log(cedula)
       
 
 
@@ -459,7 +467,7 @@ exports.searchcedula =  (req, res) =>{
 
                     conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
                         if(miculto[0]){
-                            console.log('Cedula registrada')
+                            //console.log('Cedula registrada')
 
                             dia_culto=moment(miculto[0].fecha_culto,"YYYY-MM-DD").format('DD-MM-YYYY')
 
@@ -535,7 +543,7 @@ exports.savemiembroregistro = async (req, res) =>{
         
         let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
 
-        console.log(miembro_sexo)
+        //console.log(miembro_sexo)
        
 
             
@@ -543,7 +551,7 @@ exports.savemiembroregistro = async (req, res) =>{
                 if(results[0]){
 
 
-                    console.log('Cedula existe')
+                    //console.log('Cedula existe')
 
                     conexion.query( 'SELECT culto_id, abierto_hasta, date_format(fecha_culto,"%Y-%m-%d") as fecha_culto FROM fechas_culto order by culto_id Desc limit 1', function(error, miculto) {
                         if(error){
@@ -656,7 +664,7 @@ exports.saveservicio = async (req, res) =>{
 
         let abiertohastaformat = await moment(abierto_hasta,"DD/MM/YYYY").format('YYYY-MM-DD')
 
-        console.log(fecha_culto)
+        //console.log(fecha_culto)
        
         conexion.query( 'INSERT INTO fechas_culto set ?', {fecha_culto:fechacultoformat, abierto_hasta:abiertohastaformat
             
@@ -701,7 +709,7 @@ exports.saveeventompj = async (req, res) =>{
         
         //let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
 
-        console.log(evento_cedula)
+        //console.log(evento_cedula)
        
         conexion.query( 'INSERT INTO eventos set ?', {evento_nombre:evento_nombre, 
             evento_apellido:evento_apellido, 

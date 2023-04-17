@@ -210,7 +210,7 @@ router.get('/registroasistencia',authController.isAuthenticated, (req, res) =>{
     
     //conexion.getConnection(function(err, connection) {
 
-        let sql=conexion.query( 'SELECT m.*,date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac, ca.ca_id, ca.ca_horario, ca.ca_fecha_culto FROM miembros m LEFT OUTER JOIN cultos_asistencia ca ON m.miembro_id=ca.miembro_id and DATE(ca.ca_fecha_culto) = CURDATE()', function(error, rows) {
+        let sql=conexion.query( 'SELECT m.*,date_format(m.miembro_nacimiento,"%d-%m-%Y") as fecha_nac, ca.ca_id, ca.ca_horario, ca.ca_fecha_culto, ca.ca_primera_vez FROM miembros m LEFT OUTER JOIN cultos_asistencia ca ON m.miembro_id=ca.miembro_id and DATE(ca.ca_fecha_culto) = CURDATE()', function(error, rows) {
             if(error){
                 throw error
             }else{

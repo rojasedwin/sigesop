@@ -51,7 +51,9 @@
                       <input type="hidden" id='telefono_html_<%= item.miembro_id %>' value='<%= item.miembro_telefono %>' >
                       <input type="hidden" id='nos_conocio_html_<%= item.miembro_id %>' value='<%= item.miembro_nos_conocio %>' >
                       <input type="hidden" id='cedula_html_<%= item.miembro_id %>' value='<%=item.miembro_cedula %>' >
-                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.fecha_nac %>' >
+                     
+                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=((item.fecha_nac!="00-00-0000")?item.fecha_nac:"") %>' >
+                     
                       
 
                       </td>
