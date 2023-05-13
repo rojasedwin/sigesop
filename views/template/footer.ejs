@@ -241,7 +241,7 @@
       <div class="modal-content">
         <form name="form_miembros" id="form_miembros" action="/saveregistroasistencia" method="post">
         <div class="modal-header">
-          <h4 class="modal-title">Registrar Asistencia
+          <h4 class="modal-title">Registrar Asistencia <%= mostrarDatos %>
             <input type="hidden" class="form-control" name="user_id_actual" id="user_id_actual">
           </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1226,8 +1226,13 @@ $('#miembro_cedula').val($('#cedula_html_'+miembro_id).val())
 $('#add_by').val($('#user_id_html_'+miembro_id).val())
 
 //var fechaformat=moment($('#nacimiento_html_'+miembro_id).val(),"YYYY-MM-DD").format('DD-MM-YYYY')
+if($('#nacimiento_html_'+miembro_id).val()=="01-01-1900"){
 
+$('#miembro_nacimiento').val('')
+}else{
 $('#miembro_nacimiento').val($('#nacimiento_html_'+miembro_id).val())
+}
+
 $('select option[value="'+$('#nos_conocio_html_'+miembro_id).val()+'"]').attr("selected", true);
 
 $("#form_miembros").attr("action", '/saveregistroasistencia')

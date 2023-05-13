@@ -39,7 +39,8 @@
                       <td>
                         <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
                          <br><span class="badge badge-warning"><%= item.miembro_cedula %></span>   
-                         <br><span class="badge badge-primary"><%= item.fecha_nac %></span>   
+                        <!-- <br><span class="badge badge-primary"><%= item.fecha_nac %></span>  -->  
+                         <br><span class="badge badge-primary"><%= item.fecha_nac=="01-01-1900" ? '-':item.fecha_nac %></span>   
                          <% if(item.miembro_verificado==1) { %>
                          <br><span class="badge badge-danger">Verificado</span>  
                          <% } %>
@@ -53,7 +54,7 @@
                       <input type="hidden" id='telefono_html_<%= item.miembro_id %>' value='<%= item.miembro_telefono %>' >
                       <input type="hidden" id='nos_conocio_html_<%= item.miembro_id %>' value='<%= item.miembro_nos_conocio %>' >
                       <input type="hidden" id='cedula_html_<%= item.miembro_id %>' value='<%=item.miembro_cedula %>' >
-                      <input type="hidden" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.fecha_nac %>' >
+                      <input type="text" id='nacimiento_html_<%= item.miembro_id %>' value='<%=item.fecha_nac %>' >
 
                       <input type="hidden" id='observaciones_html_<%= item.miembro_id %>' value='<%=item.miembro_observaciones %>' >
 

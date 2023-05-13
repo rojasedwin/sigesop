@@ -217,19 +217,23 @@ exports.saveregistroasistencia = async (req, res) =>{
         const ca_add_by= req.body.user_id_actual
 
         //let passHash = await bcryptjs.hash(miembro_cedula, 10)
+        console.log('nacimiento formulario-->'+miembro_nacimiento)
        
-        let nacimientoformat ="0000-00-00";
-
-        console.log('nacimiento-->'+nacimientoformat)
-        if(miembro_nacimiento!=""){
-        let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+        let nacimientoformat="1900-01-01"
+       
+        if(miembro_nacimiento!="01/01/1900" && miembro_nacimiento!=""){
+        nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+        }else{
+            nacimientoformat ="1900-01-01";
         }
+        console.log('nacimiento-->'+nacimientoformat)
+
 
         let primera_vez = typeof miembro_primera_vez !== 'undefined' ? miembro_primera_vez : '0'
-       
 
-       
+               
         if(miembro_id>0){
+           
             let Sql=conexion.query('UPDATE miembros SET ? WHERE miembro_id = ?', [
                 {  
                 miembro_nombres:miembro_nombres, 
