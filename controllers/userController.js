@@ -226,7 +226,7 @@ exports.saveregistroasistencia = async (req, res) =>{
         }else{
             nacimientoformat ="1900-01-01";
         }
-        console.log('nacimiento-->'+nacimientoformat)
+        console.log('mi nacimiento-->'+nacimientoformat)
 
 
         let primera_vez = typeof miembro_primera_vez !== 'undefined' ? miembro_primera_vez : '0'
