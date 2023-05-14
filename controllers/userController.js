@@ -120,9 +120,18 @@ exports.savemiembro = async (req, res) =>{
        
 
           
+        console.log('nacimiento formulario-->'+miembro_nacimiento)
+       
+        let nacimientoformat="1900-01-01"
+       
+        if(miembro_nacimiento!="01/01/1900" && miembro_nacimiento!=""){
+        nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+        }else{
+            nacimientoformat ="1900-01-01";
+        }
+        console.log('mi nacimiento-->'+nacimientoformat)
         
-        
-        let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+        //let nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
 
        //console.log(miembro_cedula)
        
@@ -346,9 +355,13 @@ module.exports.editarmiembro = async (req,res)=>{
     
     console.log('nacimiento form '+miembro_nacimiento)
     //let passHash = await bcryptjs.hash(miembro_cedula, 10)
-    let nacimientoformat="0000-00-00";
-    if(miembro_nacimiento!=""){
-        nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+    
+    let nacimientoformat="1900-01-01"
+       
+    if(miembro_nacimiento!="01/01/1900" && miembro_nacimiento!=""){
+    nacimientoformat = await moment(miembro_nacimiento,"DD/MM/YYYY").format('YYYY-MM-DD')
+    }else{
+        nacimientoformat ="1900-01-01";
     }
 
     console.log('nacimiento '+nacimientoformat)

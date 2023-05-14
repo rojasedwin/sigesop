@@ -40,7 +40,7 @@
                       <td>
                         <%= item.miembro_nombres %> <%= item.miembro_apellidos %>
                          <br><span class="badge badge-warning"><%= item.miembro_cedula %></span>   
-                         <br><span class="badge badge-primary"><%= item.fecha_nac %></span>   
+                         <br><span class="badge badge-primary"><%= item.fecha_nac=="01-01-1900" ? '-':item.fecha_nac %></span> 
                          <% if(item.miembro_verificado==1) { %>
                           <br><span class="badge badge-danger">Verificado</span> 
                           <% } %>

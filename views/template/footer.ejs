@@ -1199,8 +1199,14 @@ $('#miembro_telefono').val($('#telefono_html_'+miembro_id).val())
 $('#miembro_cedula').val($('#cedula_html_'+miembro_id).val())
 
 //var fechaformat=moment($('#nacimiento_html_'+miembro_id).val(),"YYYY-MM-DD").format('DD-MM-YYYY')
+if($('#nacimiento_html_'+miembro_id).val()=="01-01-1900"){
 
+$('#miembro_nacimiento').val('')
+}else{
 $('#miembro_nacimiento').val($('#nacimiento_html_'+miembro_id).val())
+}
+
+//$('#miembro_nacimiento').val($('#nacimiento_html_'+miembro_id).val())
 $('select option[value="'+$('#nos_conocio_html_'+miembro_id).val()+'"]').attr("selected", true);
 
 $("#form_miembros").attr("action", '/editarmiembro')
